@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
-app.config["MONGO-DBNAME"] = "task_manager"
+app.config["MONGO-DBNAME"] = "fitnessDB"
 app.config["MONGO_URI"] = MONGO_URI
 
 
@@ -16,7 +16,7 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/login')
 def login():
-    return render_template("login.html")
+    return render_template("login.html", user=mongo.db.current_users.find())
 
 
 if __name__ == '__main__':

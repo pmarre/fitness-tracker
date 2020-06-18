@@ -1,1 +1,1 @@
-MONGO_URI = "mongodb+srv://root:ikonpass@my-first-cluster-jtrkg.mongodb.net/task_manager?retryWrites=true&w=majority"
+MONGO_URI = "mongodb+srv://pmarre:1030Rick1990!@fitnesstracker-8ogmq.mongodb.net/fitnessDB?retryWrites=true&w=majority"
