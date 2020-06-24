@@ -27,6 +27,9 @@
       <button type="submit" name="submit" id="submit" class="btn btn-primary">
         Log in
       </button>
+      {% if login_error %}
+      <p class='error login-error'>No such username or password.</p>
+      {% endif %}
       <p class="new-user-p"></p>
         New to FitnessTracker? Sign-up <a href="#">here</a>
       </p>
