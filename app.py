@@ -33,6 +33,11 @@ def validate_login():
         return redirect(url_for('login', login_success=False))
 
 
+@app.route('/sign-up')
+def sign_up_page():
+    return render_template('sign-up.html')
+
+
 if __name__ == '__main__':
     # for local deployment:
     app.run(debug=True)
