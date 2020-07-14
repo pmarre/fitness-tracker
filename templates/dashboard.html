@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content%}
+<div class="row">
+  <div class="col-3 offset-1 profile-box m-3 h-100">
+    <div></div>
+    <h1>{{user.first_name}} {{user.last_name}}</h1>
+    <p>Latest Activity:</p>
+    <p>[Activity]</p>
+  </div>
+  <div class="col-6 offset-sm-4 m-3">
+    <div class="row">
+      <div class="col-12 profile-box mb-3">
+        <h1>{{user.first_name}} {{user.last_name}}</h1>
+        <p>Latest Activity:</p>
+        <p>[Activity]</p>
+      </div>
+      <div class="col-12 profile-box mb-3">
+        <h1>{{user.first_name}} {{user.last_name}}</h1>
+        <p>Latest Activity:</p>
+        <p>[Activity]</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock%}

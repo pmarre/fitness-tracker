@@ -1,3 +1,7 @@
+body {
+  background-color: gainsboro;
+}
+
 .landing-image {
   background-image: url('../images/homepage.svg');
   background-size: cover;
@@ -28,4 +32,9 @@
 
 .header-center-align {
   text-align: center;
+}
+
+.profile-box {
+  background-color: #fff;
+  padding: 20px;
 }

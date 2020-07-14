@@ -28,9 +28,18 @@ def validate_login():
     email = request.form.get("email")
     password = request.form.get("password")
     if mongo.db.current_users.find_one({'email': email, 'password': password}) != None:
-        return redirect(url_for('login', login_success=True))
+        user = mongo.db.current_users.find_one({'email': email})
+        print(user)
+        print(user['_id'])
+        user_id = user['_id']
+        return redirect(url_for('dashboard', user_id=user_id))
     else:
         return redirect(url_for('login', login_success=False))
+
+
+@app.route('/dashboard/<user_id>', methods=['POST', 'GET'])
+def dashboard(user_id):
+    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}))
 
 
 if __name__ == '__main__':
