@@ -1,11 +1,11 @@
 import os
 from config import *
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, flash, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
-
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config["MONGO-DBNAME"] = "fitnessDB"
 app.config["MONGO_URI"] = MONGO_URI
 
@@ -29,12 +29,11 @@ def validate_login():
     password = request.form.get("password")
     if mongo.db.current_users.find_one({'email': email, 'password': password}) != None:
         user = mongo.db.current_users.find_one({'email': email})
-        print(user)
-        print(user['_id'])
         user_id = user['_id']
         return redirect(url_for('dashboard', user_id=user_id))
     else:
-        return redirect(url_for('login', login_success=False))
+        flash('Login unsuccessful')
+        return redirect(url_for('login'))
 
 
 @app.route('/dashboard/<user_id>', methods=['POST', 'GET'])

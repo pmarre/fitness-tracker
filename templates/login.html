@@ -27,9 +27,13 @@
       <button type="submit" name="submit" id="submit" class="btn btn-primary">
         Log in
       </button>
-      {% if login_error %}
-      <p class='error login-error'>No such username or password.</p>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <p class='error login-error'>{{message}}</p>
+      {% endfor %}
       {% endif %}
+      {% endwith %}
       <p class="new-user-p"></p>
         New to FitnessTracker? Sign-up <a href="#">here</a>
       </p>

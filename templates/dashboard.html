@@ -1,24 +1,46 @@
 {% extends 'base.html' %} {% block content%}
 <div class="row">
-  <div class="col-3 offset-1 profile-box m-3 h-100">
-    <div></div>
-    <h1>{{user.first_name}} {{user.last_name}}</h1>
-    <p>Latest Activity:</p>
-    <p>[Activity]</p>
+  <div class="d-none d-md-block col profile-box m-3 h-100">
+    <div class="profile-image"></div>
+    <div class="profile-info mt-5">
+      <h1>{{user.first_name}} {{user.last_name}}</h1>
+      <p>Latest Activity:</p>
+      <p>[Activity]</p>
+    </div>
   </div>
-  <div class="col-6 offset-sm-4 m-3">
+  <div class="col-10 offset-1 col-md-6 m-3">
     <div class="row">
-      <div class="col-12 profile-box mb-3">
-        <h1>{{user.first_name}} {{user.last_name}}</h1>
-        <p>Latest Activity:</p>
-        <p>[Activity]</p>
+      <div class="col-12 workout-box mb-3">
+        <div class="row">
+          <p class="col-12 workout-date">05-16-20</p>
+          <h1 class="col-12 workout-title">Morning Run</h1>
+          <p class="col-12 workout-description">
+            Still feeling yesterdays run, but good to move.
+          </p>
+          <p class="col-12 workout-distance">Distance: 5.15 miles</p>
+          <p class="col-12 workout-time">Time: 45 minutes</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-8 workout-image m-2"></div>
+        </div>
       </div>
-      <div class="col-12 profile-box mb-3">
-        <h1>{{user.first_name}} {{user.last_name}}</h1>
-        <p>Latest Activity:</p>
-        <p>[Activity]</p>
+      <div class="col-12 workout-box mb-3">
+        <div class="row">
+          <p class="col-12">05-15-20</p>
+          <h1 class="col-12">Evening Run</h1>
+          <p class="col-12">Felt good today! PR!</p>
+          <p class="col-12">Distance: 5.15 miles</p>
+          <p class="col-12">Time: 45 minutes</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-8 workout-image m-2"></div>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="d-none d-md-block col profile-box m-3 h-100">
+    <div></div>
+    <p>Add a new workout:</p>
   </div>
 </div>
 
