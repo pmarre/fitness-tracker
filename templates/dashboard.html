@@ -3,20 +3,20 @@
   <div class="d-none d-md-block col profile-box m-3 h-100">
     <div class="profile-image"></div>
     <div class="profile-info mt-5">
-      <h1>{{user.first_name}} {{user.last_name}}</h1>
+      <h1 class="profile-title">{{user.first_name}} {{user.last_name}}</h1>
       <p>Latest Activity:</p>
       <p>[Activity]</p>
     </div>
   </div>
+
   <div class="col-10 offset-1 col-md-6 m-3">
     <div class="row">
+      {% for w in workouts %}
       <div class="col-12 workout-box mb-3">
         <div class="row">
-          <p class="col-12 workout-date">05-16-20</p>
-          <h1 class="col-12 workout-title">Morning Run</h1>
-          <p class="col-12 workout-description">
-            Still feeling yesterdays run, but good to move.
-          </p>
+          <p class="col-12 workout-date">{{w.workout_date}}</p>
+          <h1 class="col-12 workout-title">{{w.workout_type}}</h1>
+          <p class="col-12 workout-description"></p>
           <p class="col-12 workout-distance">Distance: 5.15 miles</p>
           <p class="col-12 workout-time">Time: 45 minutes</p>
         </div>
@@ -24,24 +24,18 @@
           <div class="col-8 workout-image m-2"></div>
         </div>
       </div>
-      <div class="col-12 workout-box mb-3">
-        <div class="row">
-          <p class="col-12">05-15-20</p>
-          <h1 class="col-12">Evening Run</h1>
-          <p class="col-12">Felt good today! PR!</p>
-          <p class="col-12">Distance: 5.15 miles</p>
-          <p class="col-12">Time: 45 minutes</p>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-8 workout-image m-2"></div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
+
   <div class="d-none d-md-block col profile-box m-3 h-100">
     <div></div>
-    <p>Add a new workout:</p>
+    <p>Add a new workout</p>
+    <a
+      href="{{url_for('addworkout', user_id=user._id)}}"
+      class="add-workout-btn btn"
+      >&plus;</a
+    >
   </div>
 </div>
-
 {% endblock%}
