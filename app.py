@@ -38,7 +38,10 @@ def validate_login():
 
 @app.route('/dashboard/<user_id>', methods=['POST', 'GET'])
 def dashboard(user_id):
-    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=mongo.db.workouts.find({'user_id': user_id}))
+    workout_dict = mongo.db.workouts.find(
+        {'user_id': user_id}).sort([('workout_date', -1)])
+
+    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workout_dict)
 
 
 @app.route('/addworkout/<user_id>', methods=['POST', 'GET'])
@@ -48,8 +51,28 @@ def addworkout(user_id):
 
 @app.route('/insert_workout', methods=['GET', 'POST'])
 def insert_workout():
-    workout = {'workout_type': request.form.get(
-        'workout-type'), 'workout_notes': request.form.get('workout-notes'), 'user_id': request.form.get('user_id')}
+    h = request.form.get('workout-duration-h')
+    m = request.form.get('workout-duration-m')
+    s = request.form.get('workout-duration-s')
+    print(h)
+    workout_duration = str(h) + 'h ' + str(m) + 'm ' + str(s) + 's'
+
+    unit = request.form.get('workout-distance-units')
+    distance = request.form.get('workout-distance')
+    if (distance == None):
+        d = '0'
+    else:
+        d = str(distance)
+
+    print(d + str(unit))
+    workout = {
+        'workout_duration': workout_duration,
+        'workout_distance': d + ' ' + unit,
+        'workout_type': request.form.get('workout-type'),
+        'workout_title': request.form.get('workout-title'),
+        'workout_notes': request.form.get('workout-notes'),
+        'workout_date': request.form.get('workout-date'),
+        'user_id': request.form.get('user_id')}
     mongo.db.workouts.insert_one(workout)
     id = request.form.get("user_id")
     return redirect(url_for('dashboard', user_id=id))
