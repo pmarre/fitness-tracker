@@ -78,6 +78,23 @@ def insert_workout():
     return redirect(url_for('dashboard', user_id=id))
 
 
+@app.route('/sign-up', methods=['POST', 'GET'])
+def sign_up_page():
+    email = request.form.get("signup_email")
+    f_name = request.form.get('signup_first-name')
+    l_name = request.form.get('signup_last-name')
+    password_1 = request.form.get('signup_password')
+    password_2 = request.form.get('signup_re-password')
+    if password_1 != password_2:
+        print("passwords don't match")
+    elif mongo.db.current_users.find_one({'email': email}) != None:
+        print("email already exists")
+    else:
+        mongo.db.current_users.insert_one(
+            {'first_name': f_name, 'last_name': l_name, 'email': email, 'password': password_1})
+    return render_template('sign-up.html')
+
+
 if __name__ == '__main__':
     # for local deployment:
     app.run(debug=True)
