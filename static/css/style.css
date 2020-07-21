@@ -7,10 +7,15 @@
   height: 100%;
 }
 
-.form-login {
+.form-login,
+.form-signup {
   margin: 0 auto;
   padding: 30px;
   background-color: rgb(243, 243, 243);
+}
+
+.form-signup {
+  margin: auto 0;
 }
 
 .footer {
@@ -22,7 +27,8 @@
   width: 100%;
 }
 
-.row-login-form {
+.row-login-form,
+.row-signup-form {
   height: 80vh;
 }
 
