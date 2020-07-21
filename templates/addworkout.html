@@ -1,0 +1,133 @@
+{% extends 'base.html' %} {% block content%}
+<div class="row">
+  <div class="col-10">
+    <form action="{{ url_for('insert_workout') }}" method="POST">
+      <div class="form-group">
+        <div class="col-6 p-0">
+          <div class="row">
+            <label class="col-12" for="workout-duration">Duration:</label>
+            <div class="input-group col-4">
+              <input
+                type="number"
+                class="form-control"
+                id="workout-duration-h"
+                name="workout-duration-h"
+                placeholder="0"
+                step="1"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">h</span>
+              </div>
+            </div>
+            <div class="input-group col-4">
+              <input
+                type="number"
+                class="form-control"
+                id="workout-duration-m"
+                name="workout-duration-m"
+                min="00"
+                max="59"
+                placeholder="00"
+                step="1"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">m</span>
+              </div>
+            </div>
+            <div class="input-group col-4">
+              <input
+                type="number"
+                class="form-control"
+                id="workout-duration-s"
+                name="workout-duration-s"
+                min="00"
+                max="59"
+                placeholder="00"
+                step="1"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">s</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="workout-distance-container">
+        <label for="workout-distance">Distance:</label>
+        <input
+          type="number"
+          name="workout-distance"
+          id="workout-distance"
+          class="form-control"
+          placeholder="0.0"
+          step="0.01"
+        />
+        <select
+          class="custom-select"
+          id="workout-distance-units"
+          name="workout-distance-units"
+        >
+          <option selected value="miles">mi</option>
+          <option value="km">km</option>
+          <option value="meters">m</option>
+          <option value="yards">yds</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="workout-type">Sport:</label>
+        <select
+          class="custom-select sport-select"
+          id="workout-type"
+          name="workout-type"
+          onchange="showDistanceForm()"
+        >
+          <option value="Run" selected>Run</option>
+          <option value="Ride">Ride</option>
+          <option value="Swim">Swim</option>
+          <option value="Hike">Hike</option>
+          <option value="Weight Training">Weight Training</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="workout-title">Workout Title:</label>
+        <input
+          type="text"
+          class="workout-title-form form-control"
+          id="workout-title"
+          name="workout-title"
+          placeholder="My Workout"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="workout-notes">Notes:</label>
+        <textarea
+          name="workout-notes"
+          class="form-control"
+          id="workout-notes"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="workout-date">Workout Date:</label>
+        <input
+          type="date"
+          class="workout-date form-control"
+          id="workout-date"
+          name="workout-date"
+        />
+        <input
+          type="text"
+          class="user_id"
+          name="user_id"
+          id="user_id"
+          value="{{user_id}}"
+          hidden
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock%}

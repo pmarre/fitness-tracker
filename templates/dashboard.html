@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block content%}
+<div class="row">
+  <div class="d-none d-md-block col profile-box m-3 h-100">
+    <div class="profile-image"></div>
+    <div class="profile-info mt-5">
+      <h1 class="profile-title">{{user.first_name}} {{user.last_name}}</h1>
+      <p>Latest Activity:</p>
+      <p>[Activity]</p>
+    </div>
+  </div>
+
+  <div class="col-10 offset-1 col-md-6 m-3">
+    <div class="row">
+      {% for w in workouts %}
+      <div class="col-12 workout-box mb-3">
+        <div class="row">
+          <p class="col-12 workout-date">{{w.workout_date}}</p>
+          <h1 class="col-12 workout-title">{{w.workout_title}}</h1>
+          <p class="col-12 workout-sport">Sport: {{w.workout_type}}</p>
+          <p class="col-12 workout-description">{{w.workout_notes}}</p>
+          <p class="col-12 workout-distance">
+            Distance: {{w.workout_distance}}
+          </p>
+          <p class="col-12 workout-time">Duration: {{w.workout_duration}}</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-8 workout-image m-2"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="d-none d-md-block col profile-box m-3 h-100">
+    <div></div>
+    <p>Add a new workout</p>
+    <a
+      href="{{url_for('addworkout', user_id=user._id)}}"
+      class="add-workout-btn btn"
+      >&plus;</a
+    >
+  </div>
+</div>
+{% endblock%}
