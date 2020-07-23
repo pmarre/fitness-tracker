@@ -1,7 +1,10 @@
 {% extends 'base.html' %} {% block content%}
 <div class="row">
   <div class="d-none d-md-block col profile-box m-3 h-100">
-    <div class="profile-image"></div>
+    <div
+      class="profile-image"
+      style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
+    ></div>
     <div class="profile-info mt-5">
       <h1 class="profile-title">{{user.first_name}} {{user.last_name}}</h1>
       <p>Latest Activity:</p>
@@ -14,17 +17,33 @@
       {% for w in workouts %}
       <div class="col-12 workout-box mb-3">
         <div class="row">
-          <p class="col-12 workout-date">{{w.workout_date}}</p>
           <h1 class="col-12 workout-title">{{w.workout_title}}</h1>
-          <p class="col-12 workout-sport">Sport: {{w.workout_type}}</p>
+          <p class="col-12 workout-date">{{w.workout_date}}</p>
           <p class="col-12 workout-description">{{w.workout_notes}}</p>
-          <p class="col-12 workout-distance">
-            Distance: {{w.workout_distance}}
-          </p>
-          <p class="col-12 workout-time">Duration: {{w.workout_duration}}</p>
+          <ul class="workout-stats list-group list-group-horizontal mb-2">
+            <li class="stat list-group-item">
+              <div class="workout-stat-title">Sport</div>
+              <div class="workout-sport">{{w.workout_type}}</div>
+            </li>
+            {% if w.workout_distance != "" %}
+            <li class="stat list-group-item">
+              <div class="workout-stat-title">Distance</div>
+              <div class="workout-distance">
+                {{w.workout_distance}} {{w.workout_distance_metric}}
+              </div>
+            </li>
+            {% endif %}
+            <li class="stat list-group-item">
+              <div class="workout-stat-title">Duration</div>
+              <div class="workout-duration">{{w.workout_duration}}</div>
+            </li>
+          </ul>
         </div>
         <div class="row justify-content-center">
-          <div class="col-8 workout-image m-2"></div>
+          <div
+            class="col-8 workout-image m-2"
+            style="background-image: url({{url_for('file', filename=w['workout_image'])}});"
+          ></div>
         </div>
       </div>
       {% endfor %}

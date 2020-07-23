@@ -3,6 +3,8 @@ from config import *
 from flask import Flask, flash, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import uuid
+
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
@@ -40,7 +42,6 @@ def validate_login():
 def dashboard(user_id):
     workout_dict = mongo.db.workouts.find(
         {'user_id': user_id}).sort([('workout_date', -1)])
-
     return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workout_dict)
 
 
@@ -64,15 +65,21 @@ def insert_workout():
     else:
         d = str(distance)
 
-    print(d + str(unit))
+    if 'workout_image' in request.files:
+        workout_image = request.files['workout_image']
+        new_name = uuid.uuid1().hex
+        mongo.save_file(new_name, workout_image)
+
     workout = {
         'workout_duration': workout_duration,
-        'workout_distance': d + ' ' + unit,
+        'workout_distance': d,
+        'workout_distance_metric': unit,
         'workout_type': request.form.get('workout-type'),
         'workout_title': request.form.get('workout-title'),
         'workout_notes': request.form.get('workout-notes'),
         'workout_date': request.form.get('workout-date'),
-        'user_id': request.form.get('user_id')}
+        'user_id': request.form.get('user_id'),
+        'workout_image': new_name}
     mongo.db.workouts.insert_one(workout)
     id = request.form.get("user_id")
     return redirect(url_for('dashboard', user_id=id))
@@ -85,14 +92,33 @@ def sign_up_page():
     l_name = request.form.get('signup_last-name')
     password_1 = request.form.get('signup_password')
     password_2 = request.form.get('signup_re-password')
+
+    if 'profile_image' in request.files:
+        profile_image = request.files['profile_image']
+        new_name = uuid.uuid1().hex
+        print(new_name, profile_image)
+        mongo.save_file(new_name, profile_image)
+    else:
+        new_name = None
+
     if password_1 != password_2:
         print("passwords don't match")
+        return render_template('sign-up.html')
     elif mongo.db.current_users.find_one({'email': email}) != None:
         print("email already exists")
+        return render_template('sign-up.html')
     else:
         mongo.db.current_users.insert_one(
-            {'first_name': f_name, 'last_name': l_name, 'email': email, 'password': password_1})
-    return render_template('sign-up.html')
+            {'first_name': f_name, 'last_name': l_name, 'email': email, 'password': password_1, 'profile_image': new_name})
+        if mongo.db.current_users.find_one({'email': email}) != None:
+            user = mongo.db.current_users.find_one({'email': email})
+            user_id = user['_id']
+            return redirect(url_for('dashboard', user_id=user_id))
+
+
+@app.route('/file/<filename>')
+def file(filename):
+    return mongo.send_file(filename)
 
 
 if __name__ == '__main__':

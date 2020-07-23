@@ -2,7 +2,12 @@
 <div class="row row-signup-form align-items-center">
   <div class="col-sm-12 col-md-6 offset-md-3">
     <h1 class="header-signup-form header-center-align">Sign Up</h1>
-    <form action="" method="POST" class="form form-signup">
+    <form
+      action="{{ url_for('sign_up_page') }}"
+      method="POST"
+      class="form form-signup"
+      enctype="multipart/form-data"
+    >
       <div class="form-group">
         <label for="first-name" id="first-name-label">First Name</label>
         <input
@@ -54,6 +59,17 @@
           name="signup_re-password"
           id="signup_re-password"
           aria-describedby="passwordHelp"
+        />
+      </div>
+      <div class="form-group">
+        <label for="profile-image" id="image-label">Upload Profile Image</label>
+        <input
+          type="file"
+          name="profile_image"
+          id="profile_image"
+          class="form-control"
+          aria-describedby="profileimg"
+          required
         />
       </div>
       <button type="submit" name="submit" id="submit" class="btn btn-primary">
