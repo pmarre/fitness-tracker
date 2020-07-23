@@ -1,0 +1,153 @@
+{% extends 'base.html' %} {% block content%}
+<div class="row">
+  <div class="col-10">
+    <form
+      action="{{ url_for('update_workout', workout_id=workout._id) }}"
+      method="POST"
+      class="form"
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <div class="col-6 p-0">
+          <div class="row">
+            <label class="col-12" for="workout-duration">Duration:</label>
+            <div class="input-group col-4">
+              <input
+                type="number"
+                class="form-control"
+                id="workout-duration-h"
+                name="workout-duration-h"
+                placeholder="0"
+                step="1"
+                value="{{workout.workout_duration_h}}"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">h</span>
+              </div>
+            </div>
+            <div class="input-group col-4">
+              <input
+                type="number"
+                class="form-control"
+                id="workout-duration-m"
+                name="workout-duration-m"
+                min="00"
+                max="59"
+                placeholder="00"
+                step="1"
+                value="{{workout.workout_duration_m}}"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">m</span>
+              </div>
+            </div>
+            <div class="input-group col-4">
+              <input
+                type="number"
+                class="form-control"
+                id="workout-duration-s"
+                name="workout-duration-s"
+                min="00"
+                max="59"
+                placeholder="00"
+                step="1"
+                value="{{workout.workout_duration_s}}"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">s</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="workout-distance-container">
+        <label for="workout-distance">Distance:</label>
+        <input
+          type="number"
+          name="workout-distance"
+          id="workout-distance"
+          class="form-control"
+          placeholder="0.0"
+          step="0.01"
+          value="{{workout.workout_distance}}"
+        />
+        <select
+          class="custom-select"
+          id="workout-distance-units"
+          name="workout-distance-units"
+        >
+          <option value="miles" {% if workout.workout_distance_metric == 'miles' %} selected {% endif %}>mi</option>
+          <option value="km" {% if workout.workout_distance_metric == 'km' %} selected {% endif %}>km</option>
+          <option value="meters" {% if workout.workout_distance_metric == 'meters' %} selected {% endif %}>m</option>
+          <option value="yards" {% if workout.workout_distance_metric == 'yards' %} selected {% endif %}>yds</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="workout-type">Sport:</label>
+        <select
+          class="custom-select sport-select"
+          id="workout-type"
+          name="workout-type"
+          onchange="showDistanceForm()"
+        >
+          <option value="Run" {% if workout.workout_type == 'Run' %} selected {% endif %}>Run</option>
+          <option value="Ride" {% if workout.workout_type == 'Ride' %} selected {% endif %}>Ride</option>
+          <option value="Swim" {% if workout.workout_type == 'Swim' %} selected {% endif %}>Swim</option>
+          <option value="Hike" {% if workout.workout_type == 'Hike' %} selected {% endif %}>Hike</option>
+          <option value="Weight Training" {% if workout.workout_type == 'Weight Training' %} selected {% endif %}>Weight Training</option>
+          <option value="Other" {% if workout.workout_type == 'Other' %} selected {% endif %}>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="workout-title">Workout Title:</label>
+        <input
+          type="text"
+          class="workout-title-form form-control"
+          id="workout-title"
+          name="workout-title"
+          placeholder="My Workout"
+          required
+          value="{{workout.workout_title}}"
+        />
+      </div>
+      <div class="form-group">
+        <label for="workout-notes">Notes:</label>
+        <textarea name="workout-notes" class="form-control" id="workout-notes">
+{{workout.workout_notes}}</textarea
+        >
+      </div>
+      <div class="form-group">
+        <label for="workout-date">Workout Date:</label>
+        <input
+          type="date"
+          class="workout-date form-control"
+          id="workout-date"
+          name="workout-date"
+          value="{{workout.workout_date}}"
+        />
+        <input
+          type="text"
+          class="user_id"
+          name="user_id"
+          id="user_id"
+          value="{{workout.user_id}}"
+          hidden
+        />
+      </div>
+      <div class="form-group">
+        <label for="workout-image" id="image-label">Change Workout Image</label>
+        <input
+          type="file"
+          name="workout_image"
+          id="workout_image"
+          class="form-control"
+          aria-describedby="workoutimg"
+          value="{{workout.workout_image}}"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock%}
