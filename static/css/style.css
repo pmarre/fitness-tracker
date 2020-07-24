@@ -2,6 +2,25 @@ body {
   background-color: #f7f7fa;
 }
 
+/* ICONS */
+.edit,
+.delete {
+  font-size: 1.25rem;
+}
+
+.edit {
+  color: rgb(106, 106, 252);
+}
+
+.delete {
+  color: rgb(206, 69, 69);
+}
+
+.edit:hover,
+.delete:hover {
+  color: #000;
+}
+
 .landing-image {
   background-image: url('../images/homepage.svg');
   background-size: cover;

@@ -152,12 +152,13 @@ def update_workout(workout_id):
         d = str(distance)
 
     workout = mongo.db.workouts.find_one({"_id": ObjectId(workout_id)})
-    workout_img = workout["workout_image"]
 
-    if 'workout_image' in request.files:
-        print('new image')
+    if request.files['workout_image_update'].filename == '':
+        img = workout['workout_image']
     else:
-        print('old image')
+        updated_img = request.files['workout_image_update']
+        img = uuid.uuid1().hex
+        mongo.save_file(img, updated_img)
 
     mongo.db.workouts.update({"_id": ObjectId(workout_id)}, {
         'workout_duration_h': h,
@@ -171,7 +172,7 @@ def update_workout(workout_id):
         'workout_notes': request.form.get('workout-notes'),
         'workout_date': request.form.get('workout-date'),
         'user_id': request.form.get('user_id'),
-        'workout_image': new_name})
+        'workout_image': img})
     id = request.form.get("user_id")
     return redirect(url_for('dashboard', user_id=id))
 
