@@ -42,7 +42,9 @@ def validate_login():
 def dashboard(user_id):
     workout_dict = mongo.db.workouts.find(
         {'user_id': user_id}).sort([('workout_date', -1)])
-    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workout_dict)
+    recent_workout = mongo.db.workouts.find(
+        {'user_id': user_id}).sort([('workout_date', -1)]).limit(1)
+    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workout_dict, recent=recent_workout)
 
 
 @app.route('/addworkout/<user_id>', methods=['POST', 'GET'])
@@ -71,6 +73,9 @@ def insert_workout():
         mongo.save_file(new_name, workout_image)
 
     workout = {
+        'workout_duration_h': h,
+        'workout_duration_m': m,
+        'workout_duration_s': s,
         'workout_duration': workout_duration,
         'workout_distance': d,
         'workout_distance_metric': unit,
@@ -119,6 +124,59 @@ def sign_up_page():
 @app.route('/file/<filename>')
 def file(filename):
     return mongo.send_file(filename)
+
+
+@app.route('/delete_workout/<workout_id>')
+def delete_workout(workout_id):
+    workout = mongo.db.workouts.find_one({"_id": ObjectId(workout_id)})
+    mongo.db.workouts.remove({'_id': ObjectId(workout_id)})
+    return redirect(url_for('dashboard', user_id=workout['user_id']))
+
+
+@app.route('/edit_workout/<workout_id>')
+def edit_workout(workout_id):
+    the_workout = mongo.db.workouts.find_one({"_id": ObjectId(workout_id)})
+    return render_template('editworkout.html', workout=the_workout)
+
+
+@app.route('/update_workout/<workout_id>', methods=['GET', 'POST'])
+def update_workout(workout_id):
+    h = request.form.get('workout-duration-h')
+    m = request.form.get('workout-duration-m')
+    s = request.form.get('workout-duration-s')
+    workout_duration = str(h) + 'h ' + str(m) + 'm ' + str(s) + 's'
+
+    unit = request.form.get('workout-distance-units')
+    distance = request.form.get('workout-distance')
+    if (distance == None):
+        d = '0'
+    else:
+        d = str(distance)
+
+    workout = mongo.db.workouts.find_one({"_id": ObjectId(workout_id)})
+
+    if request.files['workout_image_update'].filename == '':
+        img = workout['workout_image']
+    else:
+        updated_img = request.files['workout_image_update']
+        img = uuid.uuid1().hex
+        mongo.save_file(img, updated_img)
+
+    mongo.db.workouts.update({"_id": ObjectId(workout_id)}, {
+        'workout_duration_h': h,
+        'workout_duration_m': m,
+        'workout_duration_s': s,
+        'workout_duration': workout_duration,
+        'workout_distance': d,
+        'workout_distance_metric': unit,
+        'workout_type': request.form.get('workout-type'),
+        'workout_title': request.form.get('workout-title'),
+        'workout_notes': request.form.get('workout-notes'),
+        'workout_date': request.form.get('workout-date'),
+        'user_id': request.form.get('user_id'),
+        'workout_image': img})
+    id = request.form.get("user_id")
+    return redirect(url_for('dashboard', user_id=id))
 
 
 if __name__ == '__main__':

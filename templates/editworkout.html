@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-10">
     <form
-      action="{{ url_for('insert_workout') }}"
+      action="{{ url_for('update_workout', workout_id=workout._id) }}"
       method="POST"
       class="form"
       enctype="multipart/form-data"
@@ -19,7 +19,7 @@
                 name="workout-duration-h"
                 placeholder="0"
                 step="1"
-                value="0"
+                value="{{workout.workout_duration_h}}"
               />
               <div class="input-group-append">
                 <span class="input-group-text">h</span>
@@ -35,7 +35,7 @@
                 max="59"
                 placeholder="00"
                 step="1"
-                value="00"
+                value="{{workout.workout_duration_m}}"
               />
               <div class="input-group-append">
                 <span class="input-group-text">m</span>
@@ -51,7 +51,7 @@
                 max="59"
                 placeholder="00"
                 step="1"
-                value="00"
+                value="{{workout.workout_duration_s}}"
               />
               <div class="input-group-append">
                 <span class="input-group-text">s</span>
@@ -69,16 +69,17 @@
           class="form-control"
           placeholder="0.0"
           step="0.01"
+          value="{{workout.workout_distance}}"
         />
         <select
           class="custom-select"
           id="workout-distance-units"
           name="workout-distance-units"
         >
-          <option selected value="miles">mi</option>
-          <option value="km">km</option>
-          <option value="meters">m</option>
-          <option value="yards">yds</option>
+          <option value="miles" {% if workout.workout_distance_metric == 'miles' %} selected {% endif %}>mi</option>
+          <option value="km" {% if workout.workout_distance_metric == 'km' %} selected {% endif %}>km</option>
+          <option value="meters" {% if workout.workout_distance_metric == 'meters' %} selected {% endif %}>m</option>
+          <option value="yards" {% if workout.workout_distance_metric == 'yards' %} selected {% endif %}>yds</option>
         </select>
       </div>
       <div class="form-group">
@@ -89,12 +90,12 @@
           name="workout-type"
           onchange="showDistanceForm()"
         >
-          <option value="Run" selected>Run</option>
-          <option value="Ride">Ride</option>
-          <option value="Swim">Swim</option>
-          <option value="Hike">Hike</option>
-          <option value="Weight Training">Weight Training</option>
-          <option value="Other">Other</option>
+          <option value="Run" {% if workout.workout_type == 'Run' %} selected {% endif %}>Run</option>
+          <option value="Ride" {% if workout.workout_type == 'Ride' %} selected {% endif %}>Ride</option>
+          <option value="Swim" {% if workout.workout_type == 'Swim' %} selected {% endif %}>Swim</option>
+          <option value="Hike" {% if workout.workout_type == 'Hike' %} selected {% endif %}>Hike</option>
+          <option value="Weight Training" {% if workout.workout_type == 'Weight Training' %} selected {% endif %}>Weight Training</option>
+          <option value="Other" {% if workout.workout_type == 'Other' %} selected {% endif %}>Other</option>
         </select>
       </div>
       <div class="form-group">
@@ -106,15 +107,14 @@
           name="workout-title"
           placeholder="My Workout"
           required
+          value="{{workout.workout_title}}"
         />
       </div>
       <div class="form-group">
         <label for="workout-notes">Notes:</label>
-        <textarea
-          name="workout-notes"
-          class="form-control"
-          id="workout-notes"
-        ></textarea>
+        <textarea name="workout-notes" class="form-control" id="workout-notes">
+{{workout.workout_notes}}</textarea
+        >
       </div>
       <div class="form-group">
         <label for="workout-date">Workout Date:</label>
@@ -123,25 +123,26 @@
           class="workout-date form-control"
           id="workout-date"
           name="workout-date"
+          value="{{workout.workout_date}}"
         />
         <input
           type="text"
           class="user_id"
           name="user_id"
           id="user_id"
-          value="{{user_id}}"
+          value="{{workout.user_id}}"
           hidden
         />
       </div>
       <div class="form-group">
-        <label for="workout-image" id="image-label">Upload Workout Image</label>
+        <label for="workout-image_update" id="image-label">Change Workout Image</label>
         <input
           type="file"
-          name="workout_image"
-          id="workout_image"
+          name="workout_image_update"
+          id="workout_image_update"
           class="form-control"
           aria-describedby="workoutimg"
-          required
+          value="{{workout.workout_image}}"
         />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>

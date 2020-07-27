@@ -2,6 +2,25 @@ body {
   background-color: #f7f7fa;
 }
 
+/* ICONS */
+.edit,
+.delete {
+  font-size: 1.25rem;
+}
+
+.edit {
+  color: rgb(106, 106, 252);
+}
+
+.delete {
+  color: rgb(206, 69, 69);
+}
+
+.edit:hover,
+.delete:hover {
+  color: #000;
+}
+
 .landing-image {
   background-image: url('../images/homepage.svg');
   background-size: cover;
@@ -45,6 +64,11 @@ body {
   box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
 }
 
+.profile-title {
+  text-align: center;
+  border-bottom: 1px #d1d1d1 solid;
+}
+
 .profile-image {
   width: 100px;
   height: 100px;
@@ -57,6 +81,15 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.latest-activity {
+  font-size: 0.85rem;
+  font-weight: 100;
+}
+
+.latest-activity-title {
+  font-weight: 800;
 }
 
 /* WORKOUT BOX */
