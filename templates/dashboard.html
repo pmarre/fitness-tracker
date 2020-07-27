@@ -5,10 +5,21 @@
       class="profile-image"
       style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
     ></div>
-    <div class="profile-info mt-5">
-      <h1 class="profile-title">{{user.first_name}} {{user.last_name}}</h1>
-      <p>Latest Activity:</p>
-      <p>[Activity]</p>
+    <div class="profile-info mt-5 row">
+      <h1 class="profile-title col-12 pb-3 no-gutters">
+        {{user.first_name}} {{user.last_name}}
+      </h1>
+      <p class="col-12 pb-0 mt-2 mb-0 latest-activity latest-activity">
+        Latest Activity:
+      </p>
+      {% for x in recent %}
+      <p class="col-12 latest-activity latest-activity-title mb-0 pb-0">
+        {{x.workout_title}}
+      </p>
+      <p class="col-12 latest-activity latest-activity-date mb-0 pb-0">
+        {{x.workout_date}}
+      </p>
+      {% endfor %}
     </div>
   </div>
 

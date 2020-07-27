@@ -42,7 +42,9 @@ def validate_login():
 def dashboard(user_id):
     workout_dict = mongo.db.workouts.find(
         {'user_id': user_id}).sort([('workout_date', -1)])
-    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workout_dict)
+    recent_workout = mongo.db.workouts.find(
+        {'user_id': user_id}).sort([('workout_date', -1)]).limit(1)
+    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workout_dict, recent=recent_workout)
 
 
 @app.route('/addworkout/<user_id>', methods=['POST', 'GET'])
