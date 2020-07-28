@@ -4,6 +4,7 @@ from flask import Flask, flash, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import uuid
+import datetime
 
 
 app = Flask(__name__)
@@ -40,11 +41,23 @@ def validate_login():
 
 @app.route('/dashboard/<user_id>', methods=['POST', 'GET'])
 def dashboard(user_id):
+    # Goal to get all workouts in last 30 days and show them on dashboard
+    # start_date = datetime.datetime.now() - datetime.timedelta(30)
+    # sd = start_date
+    # print(sd)
+    # recent_workouts_dict = mongo.db.workout.find(
+    #     {'user_id': user_id, 'workout_date': {'$gte': sd}})
+    # for x in recent_workouts_dict:
+    #     print(x)
     workout_dict = mongo.db.workouts.find(
         {'user_id': user_id}).sort([('workout_date', -1)])
     recent_workout = mongo.db.workouts.find(
         {'user_id': user_id}).sort([('workout_date', -1)]).limit(1)
-    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workout_dict, recent=recent_workout)
+    if workout_dict.count() == 0:
+        workouts = None
+    else:
+        workouts = workout_dict
+    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workouts, recent=recent_workout)
 
 
 @app.route('/addworkout/<user_id>', methods=['POST', 'GET'])
@@ -181,8 +194,8 @@ def update_workout(workout_id):
 
 if __name__ == '__main__':
     # for local deployment:
-    # app.run(debug=True)
+    app.run(debug=True)
 
     # for deployment to Heroku:
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')), debug=True)
+    # app.run(host=os.environ.get('IP'),
+    #       port=int(os.environ.get('PORT')), debug=True)

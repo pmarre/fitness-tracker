@@ -22,10 +22,13 @@
       {% endfor %}
     </div>
   </div>
-
   <div class="col-10 offset-1 col-md-6 m-3">
     <div class="row">
-      {% for w in workouts %}
+      {% if workouts == None %}
+      <div class="col 12 workout-box mb-3">
+        <h2>Add your first workout!</h2>
+      </div>
+      {% else %} {% for w in workouts %}
       <div class="col-12 workout-box mb-3">
         <div class="row">
           <div class="col-12">
@@ -71,7 +74,7 @@
           ></div>
         </div>
       </div>
-      {% endfor %}
+      {% endfor %} {% endif %}
     </div>
   </div>
 
