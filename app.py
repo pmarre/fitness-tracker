@@ -54,6 +54,9 @@ def dashboard(user_id):
     # for x in recent_workouts_dict:
     #     print(x)
     user = mongo.db.current_users.find_one({'_id': ObjectId(user_id)})
+    if user == None:
+        return redirect(url_for("login"))
+
     if session.get('user_email'):
         if session['user_email'] == user['email']:
             workout_dict = mongo.db.workouts.find(
@@ -204,8 +207,8 @@ def update_workout(workout_id):
 
 if __name__ == '__main__':
     # for local deployment:
-    # app.run(debug=True)
+    app.run(debug=True)
 
     # for deployment to Heroku:
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')), debug=True)
+    # app.run(host=os.environ.get('IP'),
+    # port=int(os.environ.get('PORT')), debug=True)
