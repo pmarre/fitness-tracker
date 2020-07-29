@@ -1,6 +1,7 @@
 import os
 from config import *
-from flask import Flask, flash, render_template, redirect, request, url_for
+from flask import Flask, flash, render_template, redirect, request, url_for, session
+from flask_sessionstore import Session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import uuid
@@ -18,25 +19,29 @@ mongo = PyMongo(app)
 
 @app.route('/')
 @app.route('/login')
-def login(login_success=True):
-    print(login_success)
-    if login_success:
-        return render_template("login.html", user=mongo.db.current_users.find(), login_error=False)
-    else:
-        return render_template("login.html", user=mongo.db.current_users.find(), login_error=True)
+def login():
+    return render_template("login.html", user=mongo.db.current_users.find())
 
 
 @app.route('/validate_login', methods=['POST', 'GET'])
 def validate_login():
     email = request.form.get("email")
     password = request.form.get("password")
+    session.pop('user_email', None)
     if mongo.db.current_users.find_one({'email': email, 'password': password}) != None:
         user = mongo.db.current_users.find_one({'email': email})
         user_id = user['_id']
+        session['user_email'] = email
         return redirect(url_for('dashboard', user_id=user_id))
     else:
         flash('Login unsuccessful')
         return redirect(url_for('login'))
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user_email', None)
+    return render_template('login.html')
 
 
 @app.route('/dashboard/<user_id>', methods=['POST', 'GET'])
@@ -49,15 +54,21 @@ def dashboard(user_id):
     #     {'user_id': user_id, 'workout_date': {'$gte': sd}})
     # for x in recent_workouts_dict:
     #     print(x)
-    workout_dict = mongo.db.workouts.find(
-        {'user_id': user_id}).sort([('workout_date', -1)])
-    recent_workout = mongo.db.workouts.find(
-        {'user_id': user_id}).sort([('workout_date', -1)]).limit(1)
-    if workout_dict.count() == 0:
-        workouts = None
-    else:
-        workouts = workout_dict
-    return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workouts, recent=recent_workout)
+    user = mongo.db.current_users.find_one({'_id': ObjectId(user_id)})
+    if session.get('user_email'):
+        if session['user_email'] == user['email']:
+            workout_dict = mongo.db.workouts.find(
+                {'user_id': user_id}).sort([('workout_date', -1)])
+            recent_workout = mongo.db.workouts.find(
+                {'user_id': user_id}).sort([('workout_date', -1)]).limit(1)
+            if workout_dict.count() == 0:
+                workouts = None
+            else:
+                workouts = workout_dict
+            return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workouts, recent=recent_workout)
+        else:
+            return redirect(url_for("login"))
+    return redirect(url_for("login"))
 
 
 @app.route('/addworkout/<user_id>', methods=['POST', 'GET'])
