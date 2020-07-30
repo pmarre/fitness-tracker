@@ -27,6 +27,11 @@
       {% if workouts == None %}
       <div class="col 12 workout-box mb-3">
         <h2>Add your first workout!</h2>
+        <a
+          href="{{url_for('addworkout', user_id=user._id)}}"
+          class="add-workout-btn btn"
+          >&plus;</a
+        >
       </div>
       {% else %} {% for w in workouts %}
       <div class="col-12 workout-box mb-3">
