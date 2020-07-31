@@ -1,6 +1,44 @@
-{% extends 'base.html' %} {% block content%}
+{% extends 'base.html' %} {% block dash_link %}
+<a class="nav-link" href="{{url_for('dashboard', user_id=user._id)}}"
+  >Dashboard <span class="sr-only">(current)</span></a
+>
+{%endblock%}{% block nav %}
+<li class="nav-link dropdown">
+  <a
+    class="nav-link dropdown-toggle"
+    data-toggle="dropdown"
+    href="#"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    ><div class="row nav-profile-container align-items-center">
+      <div
+        class="nav-image"
+        style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
+      ></div>
+      <i class="fas fa-chevron-down col"></i></div
+  ></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
+      >Log Out</a
+    >
+  </div>
+</li>
+<li class="nav-link align-self-center">
+  <a
+    href="{{url_for('addworkout', user_id=user._id)}}"
+    class="add-workout-btn btn"
+    >&plus;</a
+  >
+</li>
+{% endblock %} {% block content%}
 <div class="row">
-  <div class="d-none d-md-block col profile-box m-3 h-100">
+  <div
+    class="d-none d-md-block col profile-box m-3 h-100"
+    style="top: 0; left: 0;"
+  >
     <div
       class="profile-image"
       style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
@@ -22,10 +60,11 @@
       {% endfor %}
     </div>
   </div>
-  <div class="col-10 offset-1 col-md-6 m-3">
+
+  <div class="col-10 col-md-6 m-3" id="workout-container">
     <div class="row">
       {% if workouts == None %}
-      <div class="col 12 workout-box mb-3">
+      <div class="col-12 workout-box mb-3">
         <h2>Add your first workout!</h2>
         <a
           href="{{url_for('addworkout', user_id=user._id)}}"
@@ -83,14 +122,23 @@
     </div>
   </div>
 
-  <div class="d-none d-md-block col profile-box m-3 h-100">
-    <div></div>
-    <p>Add a new workout</p>
-    <a
-      href="{{url_for('addworkout', user_id=user._id)}}"
-      class="add-workout-btn btn"
-      >&plus;</a
-    >
-  </div>
+  <aside class="d-none d-md-block m-3 h-100 col">
+    <div class="row profile-box">
+      <div class="col-12">
+        <h3 class="sidebar-h3">Add Workout</h3>
+        <a
+          href="{{url_for('addworkout', user_id=user._id)}}"
+          class="add-workout-btn sidebar-add-wrokout-btn btn"
+          >&plus;</a
+        >
+      </div>
+    </div>
+    <div class="row count-box">
+      <div class="col-12">
+        <h3 class="sidebar-h3">Total Workouts Completed</h3>
+        <p class="count">{{count}}</p>
+      </div>
+    </div>
+  </aside>
 </div>
 {% endblock%}

@@ -1,4 +1,39 @@
-{% extends 'base.html' %} {% block content%}
+{% extends 'base.html' %} {% block dash_link %}
+<a class="nav-link" href="{{url_for('dashboard', user_id=user._id)}}"
+  >Dashboard <span class="sr-only">(current)</span></a
+>
+{%endblock%}{% block nav %}
+<li class="nav-link dropdown">
+  <a
+    class="nav-link dropdown-toggle"
+    data-toggle="dropdown"
+    href="#"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    ><div class="row nav-profile-container align-items-center">
+      <div
+        class="nav-image"
+        style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
+      ></div>
+      <i class="fas fa-chevron-down col"></i></div
+  ></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
+      >Log Out</a
+    >
+  </div>
+</li>
+<li class="nav-link align-self-center">
+  <a
+    href="{{url_for('addworkout', user_id=user._id)}}"
+    class="add-workout-btn btn"
+    >&plus;</a
+  >
+</li>
+{% endblock %}{% block content%}
 <div class="row">
   <div class="col-10">
     <form
