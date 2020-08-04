@@ -280,3 +280,16 @@ nav .footer-h4 {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/* ADD WORKOUT FORM */
+.add-workout-form {
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+  margin: 0 auto;
+}
+
+.form-group {
+  padding: 0;
+}

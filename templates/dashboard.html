@@ -2,7 +2,7 @@
 <a class="nav-link" href="{{url_for('dashboard', user_id=user._id)}}"
   >Dashboard <span class="sr-only">(current)</span></a
 >
-{%endblock%}{% block nav %}
+{%endblock%}{% block full_nav %}
 <li class="nav-link dropdown">
   <a
     class="nav-link dropdown-toggle"
@@ -26,14 +26,42 @@
     >
   </div>
 </li>
-<li class="nav-link align-self-center">
+<li class="nav-item align-self-center">
   <a
     href="{{url_for('addworkout', user_id=user._id)}}"
     class="add-workout-btn btn"
     >&plus;</a
   >
 </li>
-{% endblock %} {% block content%}
+{% endblock %} {% block mobile_nav %}
+<li class="nav-link dropdown" id="mobile-nav-dropdown">
+  <a
+    id="mobile-nav-dropdown"
+    class="nav-link dropdown-toggle"
+    data-toggle="dropdown"
+    href="#"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    >{{user.first_name}} {{user.last_name}}
+    <i class="fas fa-chevron-down col"></i
+  ></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
+      >Log Out</a
+    >
+  </div>
+</li>
+<li class="nav-item align-self-center">
+  <a
+    href="{{url_for('addworkout', user_id=user._id)}}"
+    class="add-workout-btn-mobile nav-link"
+    >Add Workout</a
+  >
+</li>
+{% endblock %}{% block content%}
 <div class="row">
   <div
     class="d-none d-md-block col profile-box m-3 h-100"
@@ -77,7 +105,9 @@
         <div class="row">
           <div class="col-12">
             <div class="row align-items-center">
-              <h1 class="col-10 workout-title">{{w.workout_title}}</h1>
+              <h1 class="col-12 col-md-10 workout-title">
+                {{w.workout_title}}
+              </h1>
               <a
                 href="{{url_for('edit_workout', workout_id=w._id)}}"
                 class="col-1 edit"

@@ -40,7 +40,7 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light">
+      <nav class="navbar navbar-expand-lg navbar-light p-2">
         <div class="container-lg">
           <a class="navbar-brand" href="#">FitnessTracker</a>
           <button
@@ -66,8 +66,11 @@
                 <a href="#" class="nav-link">About</a>
               </li>
             </ul>
-            <ul class="navbar-profile m-0 navbar-nav">
-              {% block nav %} {% endblock %}
+            <ul class="navbar-profile m-0 navbar-nav d-none d-md-flex">
+              {% block full_nav %} {% endblock %}
+            </ul>
+            <ul class="navbar-profile m-0 navbar-nav d-block d-md-none">
+              {% block mobile_nav %} {% endblock %}
             </ul>
           </div>
         </div>
