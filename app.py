@@ -54,6 +54,8 @@ def dashboard(user_id):
     # for x in recent_workouts_dict:
     #     print(x)
     user = mongo.db.current_users.find_one({'_id': ObjectId(user_id)})
+    count_workouts = mongo.db.workouts.find({'user_id': user_id}).count()
+
     if user == None:
         return redirect(url_for("login"))
 
@@ -67,7 +69,7 @@ def dashboard(user_id):
                 workouts = None
             else:
                 workouts = workout_dict
-            return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workouts, recent=recent_workout)
+            return render_template("dashboard.html", user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}), workouts=workouts, recent=recent_workout, count=count_workouts)
         else:
             return redirect(url_for("login"))
     return redirect(url_for("login"))
@@ -75,7 +77,7 @@ def dashboard(user_id):
 
 @app.route('/addworkout/<user_id>', methods=['POST', 'GET'])
 def addworkout(user_id):
-    return render_template("addworkout.html", user_id=user_id)
+    return render_template("addworkout.html", user_id=user_id, user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}))
 
 
 @app.route('/insert_workout', methods=['GET', 'POST'])
@@ -83,7 +85,6 @@ def insert_workout():
     h = request.form.get('workout-duration-h')
     m = request.form.get('workout-duration-m')
     s = request.form.get('workout-duration-s')
-    print(h)
     workout_duration = str(h) + 'h ' + str(m) + 'm ' + str(s) + 's'
 
     unit = request.form.get('workout-distance-units')
@@ -162,7 +163,7 @@ def delete_workout(workout_id):
 @app.route('/edit_workout/<workout_id>')
 def edit_workout(workout_id):
     the_workout = mongo.db.workouts.find_one({"_id": ObjectId(workout_id)})
-    return render_template('editworkout.html', workout=the_workout)
+    return render_template('editworkout.html', workout=the_workout, user=mongo.db.current_users.find_one({'_id': ObjectId(the_workout['user_id'])}))
 
 
 @app.route('/update_workout/<workout_id>', methods=['GET', 'POST'])

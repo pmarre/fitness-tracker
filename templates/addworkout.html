@@ -1,17 +1,84 @@
-{% extends 'base.html' %} {% block content%}
-<div class="row">
+{% extends 'base.html' %} {% block dash_link %}
+<a class="nav-link" href="{{url_for('dashboard', user_id=user._id)}}"
+  >Dashboard <span class="sr-only">(current)</span></a
+>
+{%endblock%}{% block full_nav %}
+<li class="nav-link dropdown">
+  <a
+    class="nav-link dropdown-toggle"
+    data-toggle="dropdown"
+    href="#"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    ><div class="row nav-profile-container align-items-center">
+      <div
+        class="nav-image"
+        style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
+      ></div>
+      <i class="fas fa-chevron-down col"></i></div
+  ></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
+      >Log Out</a
+    >
+  </div>
+</li>
+<li class="nav-item align-self-center">
+  <a
+    href="{{url_for('addworkout', user_id=user._id)}}"
+    class="add-workout-btn btn"
+    >&plus;</a
+  >
+</li>
+{% endblock %} {% block mobile_nav %}
+<li class="nav-link dropdown" id="mobile-nav-dropdown">
+  <a
+    id="mobile-nav-dropdown"
+    class="nav-link dropdown-toggle"
+    data-toggle="dropdown"
+    href="#"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    >{{user.first_name}} {{user.last_name}}
+    <i class="fas fa-chevron-down col"></i
+  ></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
+      >Log Out</a
+    >
+  </div>
+</li>
+<li class="nav-item align-self-center">
+  <a
+    href="{{url_for('addworkout', user_id=user._id)}}"
+    class="add-workout-btn-mobile nav-link"
+    >Add Workout</a
+  >
+</li>
+{% endblock %}{% block content%}
+
+<div class="row justify-content-center">
   <div class="col-10">
     <form
       action="{{ url_for('insert_workout') }}"
       method="POST"
-      class="form"
+      class="form add-workout-form row mb-5"
       enctype="multipart/form-data"
     >
-      <div class="form-group">
-        <div class="col-6 p-0">
+      <h1 class="form-title">Add Workout</h1>
+      <div class="form-group col-12">
+        <div class="col-12 p-0">
           <div class="row">
-            <label class="col-12" for="workout-duration">Duration:</label>
-            <div class="input-group col-4">
+            <label class="col-12 add-workout-label" for="workout-duration"
+              >Duration</label
+            >
+            <div class="input-group col-12 col-md-4 mb-3">
               <input
                 type="number"
                 class="form-control"
@@ -26,7 +93,7 @@
                 <span class="input-group-text">h</span>
               </div>
             </div>
-            <div class="input-group col-4">
+            <div class="input-group col-12 col-md-4 mb-3">
               <input
                 type="number"
                 class="form-control"
@@ -43,7 +110,7 @@
                 <span class="input-group-text">m</span>
               </div>
             </div>
-            <div class="input-group col-4">
+            <div class="input-group col-12 col-md-4 mb-3">
               <input
                 type="number"
                 class="form-control"
@@ -62,90 +129,98 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="form-group" id="workout-distance-container">
-        <label for="workout-distance">Distance:</label>
-        <input
-          type="number"
-          name="workout-distance"
-          id="workout-distance"
-          class="form-control"
-          placeholder="0.0"
-          step="0.01"
-        />
-        <select
-          class="custom-select"
-          id="workout-distance-units"
-          name="workout-distance-units"
-        >
-          <option selected value="miles">mi</option>
-          <option value="km">km</option>
-          <option value="meters">m</option>
-          <option value="yards">yds</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="workout-type">Sport:</label>
-        <select
-          class="custom-select sport-select"
-          id="workout-type"
-          name="workout-type"
-          onchange="showDistanceForm()"
-        >
-          <option value="Run" selected>Run</option>
-          <option value="Ride">Ride</option>
-          <option value="Swim">Swim</option>
-          <option value="Hike">Hike</option>
-          <option value="Weight Training">Weight Training</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="workout-title">Workout Title:</label>
-        <input
-          type="text"
-          class="workout-title-form form-control"
-          id="workout-title"
-          name="workout-title"
-          placeholder="My Workout"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="workout-notes">Notes:</label>
-        <textarea
-          name="workout-notes"
-          class="form-control"
-          id="workout-notes"
-        ></textarea>
-      </div>
-      <div class="form-group">
-        <label for="workout-date">Workout Date:</label>
-        <input
-          type="date"
-          class="workout-date form-control"
-          id="workout-date"
-          name="workout-date"
-          required
-        />
-        <input
-          type="text"
-          class="user_id"
-          name="user_id"
-          id="user_id"
-          value="{{user_id}}"
-          hidden
-        />
-      </div>
-      <div class="form-group">
-        <label for="workout-image" id="image-label">Upload Workout Image</label>
-        <input
-          type="file"
-          name="workout_image"
-          id="workout_image"
-          class="form-control"
-          aria-describedby="workoutimg"
-        />
+        <div class="form-group col-12" id="workout-distance-container">
+          <label for="workout-distance" class="col-12 add-workout-label p-0"
+            >Distance</label
+          >
+          <div class="input-group">
+            <input
+              type="number"
+              name="workout-distance"
+              id="workout-distance"
+              class="form-control col-8"
+              placeholder="0.0"
+              step="0.01"
+            />
+            <select
+              class="custom-select col"
+              id="workout-distance-units"
+              name="workout-distance-units"
+            >
+              <option selected value="miles">mi</option>
+              <option value="km">km</option>
+              <option value="meters">m</option>
+              <option value="yards">yds</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-12">
+          <label for="workout-type">Sport</label>
+          <select
+            class="custom-select sport-select"
+            id="workout-type"
+            name="workout-type"
+            onchange="showDistanceForm()"
+          >
+            <option value="Run" selected>Run</option>
+            <option value="Ride">Ride</option>
+            <option value="Swim">Swim</option>
+            <option value="Hike">Hike</option>
+            <option value="Weight Training">Weight Training</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group col-12">
+          <label for="workout-title" class="add-workout-label"
+            >Workout Title</label
+          >
+          <input
+            type="text"
+            class="workout-title-form form-control"
+            id="workout-title"
+            name="workout-title"
+            placeholder="My Workout"
+            required
+          />
+        </div>
+        <div class="form-group col-12">
+          <label for="workout-notes add-workout-label">Notes</label>
+          <textarea
+            name="workout-notes"
+            class="form-control"
+            id="workout-notes"
+          ></textarea>
+        </div>
+        <div class="form-group col-12">
+          <label for="workout-date add-workout-label">Workout Date</label>
+          <input
+            type="date"
+            class="workout-date form-control"
+            id="workout-date"
+            name="workout-date"
+            required
+          />
+          <input
+            type="text"
+            class="user_id"
+            name="user_id"
+            id="user_id"
+            value="{{user_id}}"
+            hidden
+          />
+        </div>
+        <div class="form-group col-12">
+          <label for="workout-image add-workout-label" id="image-label"
+            >Upload Workout Image</label
+          >
+          <input
+            type="file"
+            name="workout_image"
+            id="workout_image"
+            class="col-12 p-0"
+            aria-describedby="workoutimg"
+          />
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -1,17 +1,83 @@
-{% extends 'base.html' %} {% block content%}
-<div class="row">
-  <div class="col-10">
+{% extends 'base.html' %} {% block dash_link %}
+<a class="nav-link" href="{{url_for('dashboard', user_id=user._id)}}"
+  >Dashboard <span class="sr-only">(current)</span></a
+>
+{%endblock%}{% block full_nav %}
+<li class="nav-link dropdown">
+  <a
+    class="nav-link dropdown-toggle"
+    data-toggle="dropdown"
+    href="#"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    ><div class="row nav-profile-container align-items-center">
+      <div
+        class="nav-image"
+        style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
+      ></div>
+      <i class="fas fa-chevron-down col"></i>
+      </div
+  ></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
+      >Log Out</a
+    >
+  </div>
+</li>
+<li class="nav-item align-self-center">
+  <a
+    href="{{url_for('addworkout', user_id=user._id)}}"
+    class="add-workout-btn btn"
+    >&plus;</a
+  >
+</li>
+{% endblock %}
+{% block mobile_nav %}
+<li class="nav-link dropdown">
+  <a
+    id="mobile-nav-dropdown"
+    class="nav-link dropdown-toggle"
+    data-toggle="dropdown"
+    href="#"
+    role="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    >{{user.first_name}} {{user.last_name}}
+    <i class="fas fa-chevron-down col"></i
+  ></a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Edit Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
+      >Log Out</a
+    >
+  </div>
+</li>
+<li class="nav-item align-self-center">
+  <a
+    href="{{url_for('addworkout', user_id=user._id)}}"
+    class="add-workout-btn-mobile nav-link"
+    >Add Workout</a
+  >
+</li>
+{% endblock %}{% block content%}
+<div class="row justify-content-center">
+      <div class="col-10">
     <form
       action="{{ url_for('update_workout', workout_id=workout._id) }}"
       method="POST"
-      class="form"
+      class="form add-workout-form row mb-5"
       enctype="multipart/form-data"
     >
-      <div class="form-group">
-        <div class="col-6 p-0">
+    <h1 class="form-title">Edit Workout</h1>
+      <div class="form-group col-12">
+         <div class="col-12 p-0">
           <div class="row">
-            <label class="col-12" for="workout-duration">Duration:</label>
-            <div class="input-group col-4">
+            <label class="col-12 add-workout-label" for="workout-duration">Duration:</label>
+            <div class="input-group col-12 col-md-4 mb-3">
               <input
                 type="number"
                 class="form-control"
@@ -25,7 +91,7 @@
                 <span class="input-group-text">h</span>
               </div>
             </div>
-            <div class="input-group col-4">
+            <div class="input-group col-12 col-md-4 mb-3">
               <input
                 type="number"
                 class="form-control"
@@ -41,7 +107,7 @@
                 <span class="input-group-text">m</span>
               </div>
             </div>
-            <div class="input-group col-4">
+            <div class="input-group col-12 col-md-4 mb-3">
               <input
                 type="number"
                 class="form-control"
@@ -60,8 +126,9 @@
           </div>
         </div>
       </div>
-      <div class="form-group" id="workout-distance-container">
-        <label for="workout-distance">Distance:</label>
+      <div class="form-group col-12" id="workout-distance-container">
+        <label for="workout-distance" class="col-12 add-workout-label p-0">Distance:</label>
+        <div class="input-group">
         <input
           type="number"
           name="workout-distance"
@@ -72,7 +139,7 @@
           value="{{workout.workout_distance}}"
         />
         <select
-          class="custom-select"
+          class="custom-select col"
           id="workout-distance-units"
           name="workout-distance-units"
         >
@@ -82,7 +149,8 @@
           <option value="yards" {% if workout.workout_distance_metric == 'yards' %} selected {% endif %}>yds</option>
         </select>
       </div>
-      <div class="form-group">
+      </div>
+      <div class="form-group col-12">
         <label for="workout-type">Sport:</label>
         <select
           class="custom-select sport-select"
@@ -98,7 +166,7 @@
           <option value="Other" {% if workout.workout_type == 'Other' %} selected {% endif %}>Other</option>
         </select>
       </div>
-      <div class="form-group">
+      <div class="form-group col-12">
         <label for="workout-title">Workout Title:</label>
         <input
           type="text"
@@ -109,13 +177,13 @@
           value="{{workout.workout_title}}"
         />
       </div>
-      <div class="form-group">
+      <div class="form-group col-12">
         <label for="workout-notes">Notes:</label>
         <textarea name="workout-notes" class="form-control" id="workout-notes">
 {{workout.workout_notes}}</textarea
         >
       </div>
-      <div class="form-group">
+      <div class="form-group col-12">
         <label for="workout-date">Workout Date:</label>
         <input
           type="date"
@@ -133,15 +201,14 @@
           hidden
         />
       </div>
-      <div class="form-group">
+      <div class="form-group col-12">
         <label for="workout-image_update" id="image-label">Change Workout Image</label>
         <input
           type="file"
+          class="col-12 p-0"
           name="workout_image_update"
           id="workout_image_update"
-          class="form-control"
           aria-describedby="workoutimg"
-          value="{{workout.workout_image}}"
         />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
