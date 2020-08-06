@@ -293,3 +293,8 @@ nav .footer-h4 {
 .form-group {
   padding: 0;
 }
+
+.edit-profile-form-container,
+.dashboard-container {
+  min-height: calc(100vh - 340px) !important;
+}
