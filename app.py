@@ -9,7 +9,7 @@ import datetime
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
-app.config["MONGO-DBNAME"] = "fitnessDB"
+app.config["MONGO-DBNAME"] = DB_NAME
 app.config["MONGO_URI"] = MONGO_URI
 
 
