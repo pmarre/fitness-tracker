@@ -71,7 +71,7 @@ body {
 
 /* CONTENT CONTAINER */
 .content-container {
-  margin-top: 150px;
+  /* margin-top: 150px; */
 }
 
 .landing-image {
@@ -297,4 +297,30 @@ nav .footer-h4 {
 .edit-profile-form-container,
 .dashboard-container {
   min-height: calc(100vh - 340px) !important;
+}
+
+/* ABOUT PAGE */
+.hero-container {
+  min-height: 70vh;
+  background-image: url(../images/about-header.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.about-tagline {
+  font-size: 4em;
+  font-weight: 800;
+}
+
+.full-width-container .container-lg {
+  margin: 0 !important;
 }

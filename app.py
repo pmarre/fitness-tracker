@@ -236,10 +236,15 @@ def update_profile(user_id):
     return redirect(url_for('dashboard', user_id=user_id))
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
 if __name__ == '__main__':
     # for local deployment:
-    # app.run(debug=True)
+    app.run(debug=True)
 
     # for deployment to Heroku:
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')), debug=True)
+    # app.run(host=os.environ.get('IP'),
+    #         port=int(os.environ.get('PORT')), debug=True)
