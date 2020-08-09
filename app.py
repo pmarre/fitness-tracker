@@ -1,5 +1,5 @@
 import os
-from config import *
+from fitness_tracker_config import *
 from flask import Flask, flash, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -17,6 +17,41 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
+@app.route('/sign-up', methods=['POST', 'GET'])
+def sign_up_page():
+    email = request.form.get("signup_email")
+    f_name = request.form.get('signup_first-name')
+    l_name = request.form.get('signup_last-name')
+    password_1 = request.form.get('signup_password')
+    password_2 = request.form.get('signup_re-password')
+
+    if 'profile_image' in request.files:
+        profile_image = request.files['profile_image']
+        new_name = uuid.uuid1().hex
+        print(new_name, profile_image)
+        mongo.save_file(new_name, profile_image)
+    else:
+        new_name = None
+
+    if password_1 != password_2:
+        print("passwords don't match")
+        # add flash message
+        return render_template('sign-up.html')
+    elif mongo.db.current_users.find_one({'email': email}) != None:
+        # add flash message
+        print("email already exists")
+        return render_template('sign-up.html')
+    else:
+        session.pop('user_id', None)
+        mongo.db.current_users.insert_one(
+            {'first_name': f_name, 'last_name': l_name, 'email': email, 'password': password_1, 'profile_image': new_name})
+        if mongo.db.current_users.find_one({'email': email}) != None:
+            user = mongo.db.current_users.find_one({'email': email})
+            user_id = user['_id']
+            session['user_id'] = str(user_id)
+            return redirect(url_for('dashboard', user_id=user_id))
+
+
 @app.route('/login')
 def login():
     return render_template("login.html", user=mongo.db.current_users.find())
@@ -118,41 +153,6 @@ def insert_workout():
     return redirect(url_for('dashboard', user_id=id))
 
 
-@app.route('/sign-up', methods=['POST', 'GET'])
-def sign_up_page():
-    email = request.form.get("signup_email")
-    f_name = request.form.get('signup_first-name')
-    l_name = request.form.get('signup_last-name')
-    password_1 = request.form.get('signup_password')
-    password_2 = request.form.get('signup_re-password')
-
-    if 'profile_image' in request.files:
-        profile_image = request.files['profile_image']
-        new_name = uuid.uuid1().hex
-        print(new_name, profile_image)
-        mongo.save_file(new_name, profile_image)
-    else:
-        new_name = None
-
-    if password_1 != password_2:
-        print("passwords don't match")
-        # add flash message
-        return render_template('sign-up.html')
-    elif mongo.db.current_users.find_one({'email': email}) != None:
-        # add flash message
-        print("email already exists")
-        return render_template('sign-up.html')
-    else:
-        session.pop('user_id', None)
-        mongo.db.current_users.insert_one(
-            {'first_name': f_name, 'last_name': l_name, 'email': email, 'password': password_1, 'profile_image': new_name})
-        if mongo.db.current_users.find_one({'email': email}) != None:
-            user = mongo.db.current_users.find_one({'email': email})
-            user_id = user['_id']
-            session['user_id'] = str(user_id)
-            return redirect(url_for('dashboard', user_id=user_id))
-
-
 @app.route('/file/<filename>')
 def file(filename):
     return mongo.send_file(filename)
@@ -238,7 +238,13 @@ def update_profile(user_id):
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    if session.get('user_id'):
+        print('logged in')
+        user_id = session['user_id']
+        return render_template('about.html', user_id=user_id, loggedin=True)
+    else:
+        print('logged out')
+        return render_template('about.html', loggedin=False)
 
 
 if __name__ == '__main__':
