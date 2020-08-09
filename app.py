@@ -249,8 +249,8 @@ def about():
 
 if __name__ == '__main__':
     # for local deployment:
-    app.run(debug=True)
+    # app.run(debug=True)
 
     # for deployment to Heroku:
-    # app.run(host=os.environ.get('IP'),
-    #         port=int(os.environ.get('PORT')), debug=True)
+    app.run(host=os.environ.get('IP'),
+            port=int(os.environ.get('PORT')), debug=False)
