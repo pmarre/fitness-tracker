@@ -2,3 +2,4 @@
 */__pycache__/*
 config.py
 .DS_Store
+fitness_tracker_config.py
