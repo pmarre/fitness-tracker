@@ -2,6 +2,10 @@ body {
   background-color: #f7f7fa;
 }
 
+.text-center {
+  text-align: center;
+}
+
 /* ICONS */
 .edit,
 .delete {
@@ -297,4 +301,110 @@ nav .footer-h4 {
 .edit-profile-form-container,
 .dashboard-container {
   min-height: calc(100vh - 340px) !important;
+}
+
+/* ABOUT PAGE */
+.hero-container {
+  min-height: 60vh;
+  margin-top: -150px;
+}
+
+.hero-img {
+  background-image: url('../images/hero-img.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.about-tagline {
+  font-size: 4em;
+  font-weight: 800;
+  color: #fff;
+}
+
+.about-us {
+  background-color: #fff;
+  box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+}
+
+.about-city-img {
+  background-image: url(../images/about-us-city.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+}
+
+.card {
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+}
+
+.card-img-top {
+  border-radius: 0;
+}
+
+.cta-block {
+  min-height: 300px;
+  box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+  text-align: center;
+}
+
+.join-header {
+  color: #fff;
+}
+
+.sign-up-section {
+  background-color: coral;
+}
+
+.login-section {
+  background-color: #fff;
+}
+
+.cta-link {
+  padding: 10px 20px;
+  display: block;
+  border: 2px solid #000;
+  border-radius: 25px;
+  margin: 10px auto;
+  min-width: 75px;
+}
+
+.cta-signup {
+  color: white;
+  border: 2px solid #fff;
+  transition: 0.2s linear;
+}
+
+.cta-signup:hover {
+  background-color: #fff;
+  color: coral;
+}
+
+.cta-login {
+  transition: 0.2s linear;
+}
+
+.cta-login:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+@media only screen and (max-width: 768px) {
+  .about-city-img {
+    min-height: 250px;
+  }
+
+  .about-tagline {
+    font-size: 2rem;
+  }
 }
