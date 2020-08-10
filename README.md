@@ -102,23 +102,34 @@ With fitness tracking, the list of possible features seems endless from graphs s
 2. Database structure
    - My initial thought was to just add workouts to the users existing document in MongoDB. That seemed to clutter up the database a bit, I created a second collection for workouts alone which takes the user id of the active user making it easy to call the information and declutters the database.
 3. Heroku 
-   - Heroku created a number of bugs for me to resolve, typically due to my inexperience with using Heroku, but typically all issues were resolved with rolling back to a previous verison and restarting the process of pushing files over. 
+   - Heroku created a number of bugs for me to resolve, typically due to my inexperience with using Heroku, but most issues were resolved with rolling back to a previous verison and restarting the process of pushing files over. 
 3. Peer review in Code Institute Slack Channel
    - Used the peer review Slack channel to have student/alumni/mentors review the site and give feedback and look for bugs
    - There was one major issue caught:
-    - I accidently uploaded my config file to Github exposing all my secret keys and database information. I quickly resolved this and changed all passwords and keys 
-     2. Readability and repo navigation had become a bit of an issue since I initially had my MS2 project sharing a repo with all my coursework and other projects. I ended up cloning the site and moving it, but most of my commit history still lay within the other repo which can be found [here](https://github.com/pmarre/full_stack_cert/tree/master/03_interactive_frontend_development/milestone_2).
-4. Mentor review with Joel Douglas
-   - Worked with Joel at the beginning, middle, and end of project
-   - A few errors/issues he helped me with are:
-     1. Making code more readable by creating simpler functions
-     2. Adding a like button to the full recipe card
-     3. Using local storage to create a saved recipe page
-     4. Auto scroll functionality for trending recipes
-     5. Site readability (adjusting colors to make text more clear)
+      - I accidently uploaded my config file to Github exposing all my secret keys and database information. I quickly resolved this and changed all passwords and keys 
+4. Mentor review
 
 #### Device/Browser Testing
 
 1. Used Chrome Dev tools to test the responsiveness of this project on multiple devices
 2. Check browser compatibility in Firefox, Chrome, and Safari
+
+## Deployment
+
+#### Local Deployment
+
+To create a local copy of this repository, follow these steps:
+
+1. Go to my [repo](https://github.com/pmarre/scratch/)
+2. Click the "Clone or Download" button on the top-right of the page
+3. Click the copy icon to copy the HTTPS link
+4. Open terminal
+5. Change the current directory to the location where the cloned directory will be made
+6. Type `git clone <cloned URL>` with the cloned URL being the URL you copied in step 3 and run the command
+
+For more information check out GitHub's guide to cloning a repo [here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
+
+#### Deploy to Heroku
+
+Detailed instructions for deploying to Heroku can be found [here](https://devcenter.heroku.com/articles/getting-started-with-python?singlepage=true)
 
