@@ -1,3 +1,10 @@
+/* ----- GENERAL STYLING ----- */
+
+* {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+
 body {
   background-color: #f7f7fa;
 }
@@ -6,7 +13,59 @@ body {
   text-align: center;
 }
 
-/* ICONS */
+.text-right {
+  text-align: right;
+}
+
+.error {
+  color: #ff0000;
+}
+
+.btn {
+  font-weight: 300;
+}
+
+.btn-main {
+  background-color: #ff7f50;
+  color: #fff;
+}
+
+.btn-main:hover {
+  background-color: rgb(250, 77, 15);
+  color: #fff;
+}
+
+.btn-cancel {
+  color: #646464;
+}
+
+.btn-add-first-workout {
+  margin: 0 auto;
+  display: block;
+  max-width: 150px;
+}
+
+.form-styling-base {
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+  margin: 0 auto;
+}
+
+.form-group {
+  padding: 0;
+}
+
+.form-control {
+  font-weight: 300;
+}
+
+.custom-select {
+  font-weight: 300;
+}
+
+/* ----- ICONS ----- */
 .edit,
 .delete {
   font-size: 1.25rem;
@@ -64,16 +123,22 @@ body {
 }
 
 .logout-link {
-  color: red;
+  color: #ff0000;
 }
 
 .navbar-brand {
   font-family: 'Coda', sans-serif;
   font-size: 1.5rem;
-  color: coral !important;
+  color: #ff7f50 !important;
 }
 
-/* CONTENT CONTAINER */
+.dropdown-item {
+  font-weight: 300;
+}
+
+/* ----- END NAVBAR ---- */
+
+/* ----- CONTENT CONTAINER ----- */
 .content-container {
   margin-top: 150px;
 }
@@ -87,27 +152,20 @@ body {
   height: 100%;
 }
 
-.form-login,
-.form-signup {
-  margin: 0 auto;
-  padding: 30px;
-  background-color: rgb(243, 243, 243);
-}
-
 .form-signup {
   margin: auto 0;
 }
 
+/* ----- FOOTER ----- */
 .footer {
   height: 100%;
   padding: 20px;
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(209, 209, 209);
   width: 100%;
 }
 
 .navbar-brand-footer,
 .copyright {
-  text-align: center;
   padding-bottom: 0;
 }
 
@@ -121,7 +179,6 @@ body {
 
 .footer-nav .nav-item {
   list-style: none;
-  text-align: center;
 }
 
 .footer-nav .nav-item .nav-link {
@@ -142,19 +199,24 @@ body {
 
 .social-icon-footer {
   font-size: 1rem !important;
-  background-color: rgb(255, 201, 181);
-  color: coral;
+  color: #ff7f50;
   width: 30px;
   height: 30px;
   border-radius: 50%;
   line-height: 30px !important;
-  text-align: center;
+  transition: 0.3s linear;
+}
+
+.social-icon-footer:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color: #ff7f50;
+  color: #fff;
 }
 
 .footer-h4 {
   width: 100%;
-  color: coral;
-  text-align: center;
+  color: #ff7f50;
   margin: 20px 0;
   text-transform: uppercase;
 }
@@ -163,13 +225,11 @@ nav .footer-h4 {
   margin-bottom: 10px;
 }
 
+/* ----- END FOOTER ----- */
+
 .row-login-form,
 .row-signup-form {
   height: 80vh;
-}
-
-.header-center-align {
-  text-align: center;
 }
 
 .profile-box,
@@ -188,23 +248,20 @@ nav .footer-h4 {
 .count {
   font-size: 5rem;
   font-family: 'Coda', sans-serif;
-  text-align: center;
-  color: coral;
+  color: #ff7f50;
 }
 
 .sidebar-h3 {
   font-size: 1.25rem;
   width: 100%;
-  text-align: center;
 }
 
-.sidebar-add-wrokout-btn {
+.sidebar-add-workout-btn {
   margin: 0 auto;
   display: block;
 }
 
 .profile-title {
-  text-align: center;
   border-bottom: 1px #d1d1d1 solid;
 }
 
@@ -257,17 +314,19 @@ nav .footer-h4 {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  line-height: 20px;
-  text-align: center;
-  border: 1px solid coral;
-  color: coral;
+  line-height: 25px;
+  border: 1px solid #ff7f50;
+  color: #ff7f50;
   font-size: 1.5rem;
   transition: all 0.2s linear;
+  font-weight: 300;
 }
+
 .add-workout-btn:hover {
-  background-color: coral;
+  background-color: #ff7f50;
   color: #fff;
   transform: scale(1.1);
+  font-weight: 300;
 }
 
 .workout-stat-title {
@@ -286,17 +345,6 @@ nav .footer-h4 {
 }
 
 /* ADD WORKOUT FORM */
-.add-workout-form {
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
-  margin: 0 auto;
-}
-
-.form-group {
-  padding: 0;
-}
 
 .edit-profile-form-container,
 .dashboard-container {
@@ -355,7 +403,6 @@ nav .footer-h4 {
 .cta-block {
   min-height: 300px;
   box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
-  text-align: center;
 }
 
 .join-header {
@@ -363,7 +410,7 @@ nav .footer-h4 {
 }
 
 .sign-up-section {
-  background-color: coral;
+  background-color: #ff7f50;
 }
 
 .login-section {
@@ -387,7 +434,7 @@ nav .footer-h4 {
 
 .cta-signup:hover {
   background-color: #fff;
-  color: coral;
+  color: #ff7f50;
 }
 
 .cta-login {
@@ -399,6 +446,16 @@ nav .footer-h4 {
   color: #fff;
 }
 
+.confirm-delete-btn {
+  color: #ff0000;
+  font-weight: 300;
+}
+
+.confirm-delete-btn:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @media only screen and (max-width: 768px) {
   .about-city-img {
     min-height: 250px;
@@ -406,5 +463,10 @@ nav .footer-h4 {
 
   .about-tagline {
     font-size: 2rem;
+  }
+
+  .row-signup-form {
+    height: 100%;
+    margin-bottom: 20px;
   }
 }

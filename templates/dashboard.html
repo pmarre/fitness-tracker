@@ -51,7 +51,11 @@
     <i class="fas fa-chevron-down col"></i
   ></a>
   <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Edit Profile</a>
+    <a
+      class="dropdown-item"
+      href="{{ url_for('edit_profile', user_id=user._id)}}"
+      >Edit Profile</a
+    >
     <div class="dropdown-divider"></div>
     <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
       >Log Out</a
@@ -77,7 +81,7 @@
       style="background-image: url({{url_for('file', filename=user['profile_image'])}});"
     ></div>
     <div class="profile-info mt-5 row">
-      <h1 class="profile-title col-12 pb-3 no-gutters">
+      <h1 class="profile-title col-12 pb-3 no-gutters text-center">
         {{user.first_name}} {{user.last_name}}
       </h1>
       <p class="col-12 pb-0 mt-2 mb-0 latest-activity latest-activity">
@@ -97,12 +101,12 @@
   <div class="col-10 col-md-6 m-3" id="workout-container">
     <div class="row">
       {% if workouts == None %}
-      <div class="col-12 workout-box mb-3">
-        <h2>Add your first workout!</h2>
+      <div class="col-12 workout-box mb-3 justify-items-center">
+        <h2 class="text-center display-5">Add your first workout!</h2>
         <a
           href="{{url_for('addworkout', user_id=user._id)}}"
-          class="add-workout-btn btn"
-          >&plus;</a
+          class="btn btn-primary btn-add-first-workout"
+          >Add workout</a
         >
       </div>
       {% else %} {% for w in workouts %}
@@ -118,11 +122,13 @@
                 class="col-1 edit"
                 ><i class="far fa-edit"></i
               ></a>
-              <a
-                href="{{url_for('delete_workout', workout_id=w._id)}}"
+              <div
                 class="col-1 delete"
-                ><i class="far fa-trash-alt"></i
-              ></a>
+                data-toggle="modal"
+                data-target="#confirmDeleteWorkoutModal-{{w._id}}"
+              >
+                <i class="far fa-trash-alt"></i>
+              </div>
             </div>
           </div>
           <p class="col-12 workout-date">{{w.workout_date}}</p>
@@ -148,11 +154,57 @@
         </div>
         <div class="row justify-content-center">
           <div
-            class="col-8 workout-image m-2"
+            class="col-12 col-md-8 workout-image m-2"
             style="background-image: url({{url_for('file', filename=w['workout_image'])}});"
           ></div>
         </div>
+        <!-- Confirm Delete Modal -->
+        <div
+          class="modal fade"
+          id="confirmDeleteWorkoutModal-{{w._id}}"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="DeleteModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="DeleteModalLabel">
+                  Are you sure you want to delete this workout?
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                All information will be permanently deleted.
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <a
+                  href="{{url_for('delete_workout', workout_id=w._id)}}"
+                  class="btn btn-danger"
+                  >Delete workout</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
       {% endfor %} {% endif %}
     </div>
   </div>
@@ -161,20 +213,21 @@
   <aside class="d-none d-md-block m-3 h-100 col">
     <div class="row profile-box">
       <div class="col-12">
-        <h3 class="sidebar-h3">Add Workout</h3>
+        <h3 class="sidebar-h3 text-center">Add Workout</h3>
         <a
           href="{{url_for('addworkout', user_id=user._id)}}"
-          class="add-workout-btn sidebar-add-wrokout-btn btn"
+          class="add-workout-btn sidebar-add-workout-btn btn text-center"
           >&plus;</a
         >
       </div>
     </div>
     <div class="row count-box">
       <div class="col-12">
-        <h3 class="sidebar-h3">Total Workouts Completed</h3>
-        <p class="count">{{count}}</p>
+        <h3 class="sidebar-h3 text-center">Total Workouts Completed</h3>
+        <p class="count text-center">{{count}}</p>
       </div>
     </div>
   </aside>
 </div>
+
 {% endblock%}
