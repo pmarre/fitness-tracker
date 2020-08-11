@@ -1,5 +1,5 @@
 import os
-from fitness_tracker_config import *
+# from fitness_tracker_config import *
 from flask import Flask, flash, render_template, redirect, request, url_for, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
