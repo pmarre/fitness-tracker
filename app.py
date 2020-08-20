@@ -8,9 +8,9 @@ import uuid
 import datetime
 
 # # For Heroku, comment out for local
-# MONGO_URI = os.environ.get('MONGO_URI')
-# SECRET_KEY = os.environ.get('SECRET_KEY')
-# DB_NAME = os.environ.get('DB_NAME')
+MONGO_URI = os.environ.get('MONGO_URI')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DB_NAME = os.environ.get('DB_NAME')
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
