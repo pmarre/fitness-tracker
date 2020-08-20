@@ -4,7 +4,7 @@ FitnessTracker can be accessed here: [Live Site](https://fitness-tracker-ms3.her
 
 
 ## Table of Contents
-1. [UX](https://github.com/pmarre/fitness-tracker/blob/master/README.md#ux)
+1. [UX](https://github.com/pmarre/fitness-tracker/blob/master/README.md#user-experience)
    - [User Stories](https://github.com/pmarre/fitness-tracker/blob/master/README.md#user-stories)
    - [Strategy](https://github.com/pmarre/fitness-tracker/blob/master/README.md#strategy)
    - [Scope](https://github.com/pmarre/fitness-tracker/blob/master/README.md#scope)
