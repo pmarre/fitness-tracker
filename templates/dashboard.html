@@ -159,17 +159,11 @@
             style="
               background-image: url({{url_for('static', filename='images/no_workout_img.svg')}});"
           ></div>
-          <script>
-            console.log('no image');
-          </script>
           {% else %}
           <div
             class="col-12 col-md-8 workout-image m-2"
             style="background-image: url({{url_for('file', filename=w['workout_image'])}});"
           ></div>
-          <script>
-            console.log('has image');
-          </script>
           {% endif %}
         </div>
         <!-- Confirm Delete Modal -->
