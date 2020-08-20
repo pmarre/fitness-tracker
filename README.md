@@ -4,16 +4,18 @@ FitnessTracker can be accessed here: [Live Site](https://fitness-tracker-ms3.her
 
 
 ## Table of Contents
-1. UX
-   - [User Stories]()
-   - [Strategy]()
-   - [Scope]()
-   - [Structure]()
-2. Features
-3. Tech Used
-4. Testing
-5. Database Structure
-6. Deployment
+1. [UX](https://github.com/pmarre/fitness-tracker/blob/master/README.md#ux)
+   - [User Stories](https://github.com/pmarre/fitness-tracker/blob/master/README.md#user-stories)
+   - [Strategy](https://github.com/pmarre/fitness-tracker/blob/master/README.md#strategy)
+   - [Scope](https://github.com/pmarre/fitness-tracker/blob/master/README.md#scope)
+   - [Structure](https://github.com/pmarre/fitness-tracker/blob/master/README.md#structure)
+   - [Wireframes](https://github.com/pmarre/fitness-tracker/blob/master/README.md#wireframes)
+2. [Features](https://github.com/pmarre/fitness-tracker/blob/master/README.md#features)
+   - [Future Features](https://github.com/pmarre/fitness-tracker/blob/master/README.md#future-features)
+3. [Technology Used](https://github.com/pmarre/fitness-tracker/blob/master/README.md#technologies-used)
+4. [Testing](https://github.com/pmarre/fitness-tracker/blob/master/README.md#testing)
+5. [Database Structure](https://github.com/pmarre/fitness-tracker/blob/master/README.md#database-structure)
+6. [Deployment](https://github.com/pmarre/fitness-tracker/blob/master/README.md#deployment)
 
 
 ## User Experience
@@ -47,6 +49,24 @@ After I came up with the solution, I decided to present it to the user in a very
 Responsiveness and clarity were my goal for this site. Many athletes use their phones while working out and so I wanted the site to be reflective of that and be able to easily be used from a phone. Also, the purpose of the site is track workouts and I wanted that to remain clear. It is not feature heavy because I don't want to over complicate something that should be simple. 
 
 ### Wireframes
+
+<details>
+<summary>Dashboard Wireframe</summary>
+<br />
+   <img alt="Desktop homepage wireframe" src="https://github.com/pmarre/fitness-tracker/blob/master/static/images/ft_dashboard.png">
+</details>
+
+<details>
+<summary>Login Page Wireframe</summary>
+<br />
+   <img alt="Desktop homepage wireframe" src="https://github.com/pmarre/fitness-tracker/blob/master/static/images/ft_login.png">
+</details>
+
+<details>
+<summary>Signup Wireframe</summary>
+<br />
+   <img alt="Desktop homepage wireframe" src="https://github.com/pmarre/fitness-tracker/blob/master/static/images/ft_signup.png">
+</details>
 
 ## Features
 
@@ -113,6 +133,14 @@ With fitness tracking, the list of possible features seems endless from graphs s
 
 1. Used Chrome Dev tools to test the responsiveness of this project on multiple devices
 2. Check browser compatibility in Firefox, Chrome, and Safari
+
+## Database Structure
+
+<details>
+<summary>Database Structure</summary>
+<br />
+   <img alt="Db Structure" src="https://github.com/pmarre/fitness-tracker/blob/master/static/images/db_structure.png">
+</details>
 
 ## Deployment
 
