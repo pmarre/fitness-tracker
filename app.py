@@ -7,7 +7,7 @@ from flask_bcrypt import Bcrypt
 import uuid
 import datetime
 
-# For Heroku, comment out for local
+# # For Heroku, comment out for local
 MONGO_URI = os.environ.get('MONGO_URI')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DB_NAME = os.environ.get('DB_NAME')
@@ -22,6 +22,8 @@ app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
 
 ## SIGN-UP PAGE ##
+
+
 @app.route('/')
 @app.route('/sign-up', methods=['POST', 'GET'])
 def sign_up_page():
@@ -61,11 +63,15 @@ def sign_up_page():
     return render_template('sign-up.html')
 
 ## LOGIN PAGE ##
+
+
 @app.route('/login')
 def login():
     return render_template("login.html", user=mongo.db.current_users.find())
 
 ## VALIDATE USER LOGIN ##
+
+
 @app.route('/validate_login', methods=['POST', 'GET'])
 def validate_login():
     if request.method == "POST":
@@ -88,12 +94,16 @@ def validate_login():
     return redirect(url_for('login'))
 
 ## LOGOUT USER ##
+
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return render_template('login.html')
 
 ## USER DASHBOARD PAGE ##
+
+
 @app.route('/dashboard/<user_id>')
 def dashboard(user_id):
     user = mongo.db.current_users.find_one({'_id': ObjectId(user_id)})
@@ -119,11 +129,15 @@ def dashboard(user_id):
     return redirect(url_for("login"))
 
 ## ADD WORKOUT PAGE ##
+
+
 @app.route('/addworkout/<user_id>')
 def addworkout(user_id):
     return render_template("addworkout.html", user_id=user_id, user=mongo.db.current_users.find_one({'_id': ObjectId(user_id)}))
 
 ## INSERT WORKOUT TO MONGO ##
+
+
 @app.route('/insert_workout', methods=['GET', 'POST'])
 def insert_workout():
     if request.method == "POST":
@@ -139,7 +153,11 @@ def insert_workout():
         else:
             d = str(distance)
 
-        if 'workout_image' in request.files:
+        uploaded_image = request.files['workout_image']
+        if uploaded_image.filename == '':
+            print('no file')
+            new_name = 'no_img'
+        else:
             workout_image = request.files['workout_image']
             new_name = uuid.uuid1().hex
             mongo.save_file(new_name, workout_image)
@@ -163,11 +181,15 @@ def insert_workout():
     return redirect(url_for('addworkout'))
 
 ## UPLOAD IMAGE TO MONGO ##
+
+
 @app.route('/file/<filename>')
 def file(filename):
     return mongo.send_file(filename)
 
 ## DELETE WORKOUT FROM MONGO ##
+
+
 @app.route('/delete_workout/<workout_id>')
 def delete_workout(workout_id):
     workout = mongo.db.workouts.find_one({"_id": ObjectId(workout_id)})
@@ -175,12 +197,16 @@ def delete_workout(workout_id):
     return redirect(url_for('dashboard', user_id=workout['user_id']))
 
 ## EDIT WORKOUT PAGE ##
+
+
 @app.route('/edit_workout/<workout_id>')
 def edit_workout(workout_id):
     the_workout = mongo.db.workouts.find_one({"_id": ObjectId(workout_id)})
     return render_template('editworkout.html', workout=the_workout, user=mongo.db.current_users.find_one({'_id': ObjectId(the_workout['user_id'])}))
 
 ## UPDATE WORKOUT IN MONGO ##
+
+
 @app.route('/update_workout/<workout_id>', methods=['GET', 'POST'])
 def update_workout(workout_id):
     if request.method == "POST":
@@ -223,12 +249,16 @@ def update_workout(workout_id):
     return redirect(url_for('update_workout', workout_id=workout_id))
 
 ## EDIT PROFILE PAGE ##
+
+
 @app.route('/edit_profile/<user_id>')
 def edit_profile(user_id):
     user = mongo.db.current_users.find_one({"_id": ObjectId(user_id)})
     return render_template('editprofile.html', user=user)
 
 ## UPDATE PROFILE IN MONGO ##
+
+
 @app.route('/update_profile/<user_id>', methods=['GET', 'POST'])
 def update_profile(user_id):
     if request.method == "POST":
@@ -254,12 +284,16 @@ def update_profile(user_id):
     return redirect(url_for('update_profile', user_id=user_id))
 
 ## DELETE PROFILE FROM MONGO ##
+
+
 @app.route('/delete_profile/<user_id>')
 def delete_profile(user_id):
     mongo.db.current_users.remove({'_id': ObjectId(user_id)})
     return redirect(url_for('sign_up_page'))
 
 ## ABOUT PAGE ##
+
+
 @app.route('/about')
 def about():
     if session.get('user_id'):
