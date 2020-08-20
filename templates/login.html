@@ -1,8 +1,12 @@
 {% extends 'base.html' %} {% block content%}
-<div class="row row-login-form align-items-center">
+<div class="row row-login-form align-items-center mb-5">
   <div class="col-sm-12 col-md-6 offset-md-3">
-    <h1 class="header-login-form header-center-align">Log In</h1>
-    <form action="{{ url_for('validate_login') }}" method="POST" class="form form-login">
+    <h1 class="header-login-form text-center">Log In</h1>
+    <form
+      action="{{ url_for('validate_login') }}"
+      method="POST"
+      class="form form-login form-styling-base"
+    >
       <div class="form-group">
         <label for="email" id="email-label">Email Address</label>
         <input
@@ -25,18 +29,16 @@
           required
         />
       </div>
-      <button type="submit" name="submit" id="submit" class="btn btn-primary">
+      <button type="submit" name="submit" id="submit" class="btn btn-main">
         Log in
       </button>
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      {% for message in messages %}
-      <p class='error login-error'>{{message}}</p>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-      <p class="new-user-p"></p>
-        New to FitnessTracker? Sign-up <a href="{{url_for('sign_up_page')}}">here</a>
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <p class="error login-error mt-3">{{message}}</p>
+      {% endfor %} {% endif %} {% endwith %}
+      <p class="new-user-p mt-2">
+        New to FitnessTracker? Sign-up
+        <a href="{{url_for('sign_up_page')}}">here</a>
       </p>
     </form>
   </div>

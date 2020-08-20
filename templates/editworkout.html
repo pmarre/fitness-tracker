@@ -49,7 +49,7 @@
     <i class="fas fa-chevron-down col"></i
   ></a>
   <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Edit Profile</a>
+    <a class="dropdown-item" href="{{ url_for('edit_profile', user_id=user._id)}}">Edit Profile</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
       >Log Out</a
@@ -69,7 +69,7 @@
     <form
       action="{{ url_for('update_workout', workout_id=workout._id) }}"
       method="POST"
-      class="form add-workout-form row mb-5"
+      class="form add-workout-form row mb-5 form-styling-base "
       enctype="multipart/form-data"
     >
     <h1 class="form-title">Edit Workout</h1>
@@ -211,7 +211,12 @@
           aria-describedby="workoutimg"
         />
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-main">Submit</button>
+      <a
+      href="{{url_for('dashboard', user_id=user._id)}}"
+      class="btn-cancel ml-2 align-self-center"
+      >Cancel</a
+    >
     </form>
   </div>
 </div>

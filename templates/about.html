@@ -1,0 +1,127 @@
+{% extends 'base.html' %} {% block dash_link %} {% if loggedin == True %}
+<a class="nav-link" href="{{url_for('dashboard', user_id=user_id)}}"
+  >Dashboard</a
+>
+{% else %}
+<a class="nav-link" href="{{ url_for('sign_up_page') }}">Sign Up</a>
+{% endif %} {%endblock%}
+
+<div class="full-width-container">
+  {% block content %}
+  <div class="row hero-container">
+    <div class="col-12 hero-img w-100 mb-5">
+      <div class="hero-content row w-100">
+        <p class="about-tagline col-12 mt-5 mt-md-0 pl-5 pl-md-3 ml-md-5">
+          Train to be the best version of you
+        </p>
+      </div>
+    </div>
+  </div>
+  <section class="row about-us-container justify-content-center mb-5">
+    <div class="col-12 col-md-6 about-us p-5">
+      <h1 class="about-header display-4 col-12">Who We Are</h1>
+      <p class="about-p col-12">
+        We are a small team based out of San Francisco, California. Our history
+        is one of passion, excitement and adventure. We are passionate about
+        fitness and are proud of our past success as well as our future success
+        as the best training app in the world. Our commitment is to keep
+        expanding our mission to inspire people to conquer their fitness goals.
+        Our passion is to give people the confidence and motivation to take
+        their fitness to new levels, and we do this by providing a wide variety
+        of challenges, training methods, and one easy place to store your
+        workouts.
+      </p>
+    </div>
+    <div class="col-12 col-md-6 about-city-img p-5"></div>
+  </section>
+  <section class="row our-team-container justify-content-center mb-5">
+    <div class="col-12 my-2">
+      <h1 class="team-header display-4 col-12 text-center">Our Team</h1>
+      <p class="team-p col-12 text-center">
+        We are a team, passionate about fitness and driven to help everyone
+        become better.
+      </p>
+    </div>
+    <div class="col-12 team-memeber-container">
+      <div class="row">
+        <div class="col-12 col-md-4 mb-2 mb-md-0 d-flex">
+          <div class="card">
+            <img
+              class="card-img-top"
+              src="../static/images/team-member-1.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title text-center">Willow</h5>
+              <p class="card-text">
+                Yoga has been my passion for years and I love spreading the joy
+                I find in it with others.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 mb-2 mb-md-0">
+          <div class="card">
+            <img
+              class="card-img-top"
+              src="../static/images/team-member-2.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title text-center">Natalia</h5>
+              <p class="card-text">
+                I came into fitness later in life, but now I can't stop moving
+                and sharing the excitement with everyone.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 mb-2 mb-md-0">
+          <div class="card">
+            <img
+              class="card-img-top"
+              src="../static/images/team-member-3.jpg"
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title text-center">Carter</h5>
+              <p class="card-text">
+                I have been running my whole life at an elite level and love
+                have a platform to help others get out and get moving!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="row cta-container mb-5">
+    <div class="col-12 col-md-6 sign-up-section cta-block text-center p-5">
+      <div class="row h-100">
+        <div class="col align-self-center">
+          <h1 class="display-4 join-header">Join for free now!</h1>
+          <a
+            href="{{ url_for('sign_up_page') }}"
+            class="cta-signup cta-link btn col-4 col-md-3 justify-self-center"
+            >Sign up</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 login-section cta-block text-center p-5">
+      <div class="row h-100">
+        <div class="col align-self-center">
+          <h1 class="display-4">Continue your journey!</h1>
+          <a
+            href="{{ url_for('login') }}"
+            class="cta-login cta-link btn col-4 col-md-3 justify-self-center"
+            >Login</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}
+</div>

@@ -23,9 +23,10 @@
       id="font-awesome-5-kit-css-3"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Coda:wght@800&&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Coda:wght@800&family=Roboto:wght@300;500&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -63,7 +64,7 @@
                 {% block dash_link %} {% endblock %}
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">About</a>
+                <a href="{{url_for('about')}}" class="nav-link">About</a>
               </li>
             </ul>
             <ul class="navbar-profile m-0 navbar-nav d-none d-md-flex">
@@ -82,49 +83,54 @@
     <footer class="footer">
       <div class="row mx-0">
         <div class="col-12 col-md-4 align-self-center">
-          <a href="#" class="navbar-brand w-100 navbar-brand-footer"
+          <a href="#" class="navbar-brand w-100 navbar-brand-footer text-center"
             >FitnessTracker</a
           >
-          <p class="copyright w-100">&copy; 2020 FitnessTracker Inc.</p>
+          <p class="copyright w-100 text-center">
+            &copy; 2020 FitnessTracker Inc.
+          </p>
         </div>
         <div class="col-12 col-md-4">
           <nav>
-            <h4 class="footer-h4">Navigation</h4>
-            <ul class="footer-nav">
-              <li class="nav-item">
+            <h4 class="footer-h4 text-center">Navigation</h4>
+            <ul class="footer-nav text-center">
+              <li class="nav-item text-center">
                 <a class="nav-link" href="/">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/">Features</a>
+              <li class="nav-item text-center">
+                <a class="nav-link" href="{{url_for('about')}}">About</a>
               </li>
             </ul>
           </nav>
         </div>
         <div class="col-12 col-md-4 pr-0 mr-0 footer-social-container">
-          <h4 class="footer-h4">Stay Connected With Us</h4>
+          <h4 class="footer-h4 text-center">Stay Connected With Us</h4>
           <a target="_blank" href="https://www.facebook.com"
             ><i
-              class="fab fa-facebook-f social-icon-footer"
+              class="fab fa-facebook-f social-icon-footer text-center"
               aria-hidden="true"
             ></i
             ><span class="sr-only">Facebook</span></a
           >
           <a target="_blank" href="https://www.twitter.com"
-            ><i class="fab fa-twitter social-icon-footer" aria-hidden="true"></i
+            ><i
+              class="fab fa-twitter social-icon-footer text-center"
+              aria-hidden="true"
+            ></i
             ><span class="sr-only">Twitter</span></a
           >
           <a target="_blank" href="https://www.instagram.com"
             ><i
-              class="fab fa-instagram social-icon-footer"
+              class="fab fa-instagram social-icon-footer text-center"
               aria-hidden="true"
             ></i
             ><span class="sr-only">Instagram</span></a
           >
           <a target="_blank" href="https://www.youtube.com"
-            ><i class="fab fa-youtube social-icon-footer" aria-hidden="true"></i
+            ><i
+              class="fab fa-youtube social-icon-footer text-center"
+              aria-hidden="true"
+            ></i
             ><span class="sr-only">Youtube</span></a
           >
         </div>
