@@ -21,17 +21,11 @@
   <div class="dropdown-menu">
     <a class="dropdown-item" href="#">Edit Profile</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
-      >Log Out</a
-    >
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}">Log Out</a>
   </div>
 </li>
 <li class="nav-item align-self-center">
-  <a
-    href="{{url_for('addworkout', user_id=user._id)}}"
-    class="add-workout-btn btn"
-    >&plus;</a
-  >
+  <a href="{{url_for('addworkout', user_id=user._id)}}" class="add-workout-btn btn">&plus;</a>
 </li>
 {% endblock %} {% block mobile_nav %}
 <li class="nav-link dropdown" id="mobile-nav-dropdown">
@@ -43,55 +37,45 @@
     role="button"
     aria-haspopup="true"
     aria-expanded="false"
-    >{{user.first_name}} {{user.last_name}}
-    <i class="fas fa-chevron-down col"></i
+    >{{user.first_name}} {{user.last_name}} <i class="fas fa-chevron-down col"></i
   ></a>
   <div class="dropdown-menu">
-    <a
-      class="dropdown-item"
-      href="{{ url_for('edit_profile', user_id=user._id)}}"
-      >Edit Profile</a
-    >
+    <a class="dropdown-item" href="{{ url_for('edit_profile', user_id=user._id)}}">Edit Profile</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}"
-      >Log Out</a
-    >
+    <a class="dropdown-item logout-link" href="{{ url_for('logout' )}}">Log Out</a>
   </div>
 </li>
 <li class="nav-item align-self-center">
-  <a
-    href="{{url_for('addworkout', user_id=user._id)}}"
-    class="add-workout-btn-mobile nav-link"
+  <a href="{{url_for('addworkout', user_id=user._id)}}" class="add-workout-btn-mobile nav-link"
     >Add Workout</a
   >
 </li>
 {% endblock %}{% block content%}
 
 <div class="row justify-content-center">
-  <div class="col-10">
+  <div class="col-12 col-md-10">
     <form
       action="{{ url_for('insert_workout') }}"
       method="POST"
       class="form add-workout-form row mb-5 form-styling-base"
       enctype="multipart/form-data"
+      id="add-workout-form"
     >
       <h1 class="form-title">Add Workout</h1>
       <div class="form-group col-12">
         <div class="col-12 p-0">
           <div class="row">
-            <label class="col-12 add-workout-label" for="workout-duration"
-              >Duration</label
-            >
+            <label class="col-12 add-workout-label" for="workout-duration">Duration*</label>
             <div class="input-group col-12 col-md-4 mb-3">
               <input
                 type="number"
                 class="form-control"
                 id="workout-duration-h"
                 name="workout-duration-h"
-                placeholder="0"
+                placeholder="00"
                 step="1"
-                value="0"
-                required
+                value="00"
+                required="true"
               />
               <div class="input-group-append">
                 <span class="input-group-text">h</span>
@@ -108,7 +92,7 @@
                 placeholder="00"
                 step="1"
                 value="00"
-                required
+                required="true"
               />
               <div class="input-group-append">
                 <span class="input-group-text">m</span>
@@ -125,7 +109,7 @@
                 placeholder="00"
                 step="1"
                 value="00"
-                required
+                required="true"
               />
               <div class="input-group-append">
                 <span class="input-group-text">s</span>
@@ -134,9 +118,7 @@
           </div>
         </div>
         <div class="form-group col-12" id="workout-distance-container">
-          <label for="workout-distance" class="col-12 add-workout-label p-0"
-            >Distance</label
-          >
+          <label for="workout-distance" class="col-12 add-workout-label p-0">Distance</label>
           <div class="input-group">
             <input
               type="number"
@@ -159,12 +141,13 @@
           </div>
         </div>
         <div class="form-group col-12">
-          <label for="workout-type">Sport</label>
+          <label for="workout-type">Sport*</label>
           <select
             class="custom-select sport-select"
             id="workout-type"
             name="workout-type"
             onchange="showDistanceForm()"
+            required="true"
           >
             <option value="Run" selected>Run</option>
             <option value="Ride">Ride</option>
@@ -175,9 +158,7 @@
           </select>
         </div>
         <div class="form-group col-12">
-          <label for="workout-title" class="add-workout-label"
-            >Workout Title</label
-          >
+          <label for="workout-title" class="add-workout-label">Workout Title*</label>
           <input
             type="text"
             class="workout-title-form form-control"
@@ -189,20 +170,16 @@
         </div>
         <div class="form-group col-12">
           <label for="workout-notes add-workout-label">Notes</label>
-          <textarea
-            name="workout-notes"
-            class="form-control"
-            id="workout-notes"
-          ></textarea>
+          <textarea name="workout-notes" class="form-control" id="workout-notes"></textarea>
         </div>
         <div class="form-group col-12">
-          <label for="workout-date add-workout-label">Workout Date</label>
+          <label for="workout-date add-workout-label">Workout Date*</label>
           <input
             type="date"
             class="workout-date form-control"
             id="workout-date"
             name="workout-date"
-            required
+            required="true"
           />
           <input
             type="text"
@@ -214,9 +191,7 @@
           />
         </div>
         <div class="form-group col-12">
-          <label for="workout-image add-workout-label" id="image-label"
-            >Upload Workout Image</label
-          >
+          <label for="workout-image add-workout-label" id="image-label">Upload Workout Image</label>
           <input
             type="file"
             name="workout_image"
@@ -226,12 +201,15 @@
           />
         </div>
       </div>
-      <button type="submit" class="btn btn-main">Submit</button>
+      <button type="submit" class="btn btn-main submit-form-btn">Submit</button>
       <a
         href="{{url_for('dashboard', user_id=user._id)}}"
-        class="btn-cancel ml-2 align-self-center"
+        class="btn-cancel ml-2 align-self-center d-block"
         >Cancel</a
       >
+      <p class="required-fields pt-4 small w-100">
+        All fields marked with * are required for form submission
+      </p>
     </form>
   </div>
 </div>

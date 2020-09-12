@@ -65,7 +65,7 @@
 </li>
 {% endblock %}{% block content%}
 <div class="row justify-content-center">
-      <div class="col-10">
+      <div class="col-12 col-md-10">
     <form
       action="{{ url_for('update_workout', workout_id=workout._id) }}"
       method="POST"
@@ -211,7 +211,7 @@
           aria-describedby="workoutimg"
         />
       </div>
-      <button type="submit" class="btn btn-main">Submit</button>
+      <button type="submit" class="btn btn-main submit-form-btn">Submit</button>
       <a
       href="{{url_for('dashboard', user_id=user._id)}}"
       class="btn-cancel ml-2 align-self-center"

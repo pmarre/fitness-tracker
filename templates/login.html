@@ -29,11 +29,10 @@
           required
         />
       </div>
-      <button type="submit" name="submit" id="submit" class="btn btn-main">
+      <button type="submit" name="submit" id="submit" class="btn btn-main submit-form-btn">
         Log in
       </button>
-      {% with messages = get_flashed_messages() %} {% if messages %} {% for
-      message in messages %}
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
       <p class="error login-error mt-3">{{message}}</p>
       {% endfor %} {% endif %} {% endwith %}
       <p class="new-user-p mt-2">

@@ -461,7 +461,50 @@ nav .footer-h4 {
   text-decoration: underline;
 }
 
+.input-group-text {
+  font-weight: 100;
+}
+
+.small {
+  font-weight: 100;
+}
+
+.error,
+.error:focus {
+  border: 2px solid #ff0000;
+  background-color: #f87878;
+  color: #fff;
+}
+
 @media only screen and (max-width: 768px) {
+  /* DASHBOARD PAGE */
+  .workout-title {
+    font-size: 1.5rem;
+  }
+
+  .workout-stats {
+    width: 100%;
+  }
+
+  .far {
+    font-size: 1rem;
+  }
+
+  /* FORM STYLING */
+  .form-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  /* ABOUT PAGE -- MOBILE */
+  .about-header,
+  .team-header,
+  .join-header,
+  .continue-header {
+    font-size: 2rem;
+    text-align: center;
+  }
+
   .about-city-img {
     min-height: 250px;
   }
