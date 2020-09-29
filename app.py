@@ -10,9 +10,9 @@ from flask import Flask, flash, render_template, redirect, request, url_for, ses
 from fitness_tracker_config import *
 
 # # For Heroku, comment out for local
-MONGO_URI = os.environ.get('MONGO_URI')
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DB_NAME = os.environ.get('DB_NAME')
+# MONGO_URI = os.environ.get('MONGO_URI')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+# DB_NAME = os.environ.get('DB_NAME')
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -335,8 +335,8 @@ def about():
 
 if __name__ == '__main__':
     # for local deployment:
-    # app.run(debug=True)
+    app.run(debug=True)
 
     # for deployment to Heroku:
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')), debug=False)
+    # app.run(host=os.environ.get('IP'),
+    #   port=int(os.environ.get('PORT')), debug=False)
