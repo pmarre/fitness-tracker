@@ -128,7 +128,8 @@ With fitness tracking, the list of possible features seems endless from graphs s
    - There was one major issue caught:
       - I accidently uploaded my config file to Github exposing all my secret keys and database information. I quickly resolved this and changed all passwords and keys 
 4. Mentor review
-
+   - Overall positive feedback from my mentor, Moosa Hassan, but he did suggest adding more sports to the drop down options 
+   
 #### Device/Browser Testing
 
 1. Used Chrome Dev tools to test the responsiveness of this project on multiple devices
