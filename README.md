@@ -1,7 +1,8 @@
 # FitnessTracker - Train with purpose
 
 FitnessTracker can be accessed here: [Live Site](https://fitness-tracker-ms3.herokuapp.com/)
-** FitnessTracker requires a login, I created a fake account to allow users to play around with the site without having to create a new account. The email is: j.smith@gmail.com and the password is: password123!
+
+FitnessTracker requires a login, I created a fake account to allow users to play around with the site without having to create a new account. The email is: j.smith@gmail.com and the password is: password123!
 
 
 ## Table of Contents
