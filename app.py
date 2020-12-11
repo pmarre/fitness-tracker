@@ -7,7 +7,7 @@ from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 from flask import Flask, flash, render_template, redirect, request, url_for, session
-from fitness_tracker_config import MONGO_URI, SECRET_KEY
+
 MONGO_URI = os.environ.get('MONGO_URI')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DB_NAME = os.environ.get('DB_NAME')
