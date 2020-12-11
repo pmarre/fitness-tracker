@@ -7,7 +7,7 @@ from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
 from flask_pymongo import PyMongo
 from flask import Flask, flash, render_template, redirect, request, url_for, session
-
+from fitness_tracker_config import MONGO_URI, SECRET_KEY
 MONGO_URI = os.environ.get('MONGO_URI')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DB_NAME = os.environ.get('DB_NAME')
@@ -47,7 +47,8 @@ def sign_up_page():
         else:
             new_name = None
 
-        if password_1 is not password_2:
+        if password_1 != password_2:
+            print(password_1, password_2)
             flash('Passwords do not match')
             return render_template('sign-up.html')
         elif mongo.db.current_users.find_one({'email': email}) is not None:
