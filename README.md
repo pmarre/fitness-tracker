@@ -31,7 +31,7 @@ FitnessTracker requires a login, I created a fake account to allow users to play
 ### User Stories
 
 - _"I try to workout almost everyday and want a place where I can quickly input the workout and view it later."_, Completed by allowing the user to create an account on FitnessTracker and add/view any of their workouts on any device
-- _"I typically do different forms of working out beyond just runnin and want a place to track all my workouts in one place."_, Completed by allowing users to select from a wide range of different sports/workouts when adding it their dashboard.  
+- _"I typically do different forms of working out beyond just running and want a place to track all my workouts in one place."_, Completed by allowing users to select from a wide range of different sports/workouts when adding it their dashboard.  
 - _"I am new to working out and want a place where I can look back and see how I felt doing the same workout a month ago."_, Completed by allowing users to input notes into their workouts so they can remember how workouts felt at the time. 
 
 ### Strategy
